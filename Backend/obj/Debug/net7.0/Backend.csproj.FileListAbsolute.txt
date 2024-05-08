@@ -7,9 +7,6 @@ C:\Users\josep\Documents\Programming\C#\InvestmentTracker\Backend\bin\Debug\net7
 C:\Users\josep\Documents\Programming\C#\InvestmentTracker\Backend\bin\Debug\net7.0\Backend.pdb
 C:\Users\josep\Documents\Programming\C#\InvestmentTracker\Backend\bin\Debug\net7.0\Microsoft.AspNetCore.OpenApi.dll
 C:\Users\josep\Documents\Programming\C#\InvestmentTracker\Backend\bin\Debug\net7.0\Microsoft.OpenApi.dll
-C:\Users\josep\Documents\Programming\C#\InvestmentTracker\Backend\bin\Debug\net7.0\Swashbuckle.AspNetCore.Swagger.dll
-C:\Users\josep\Documents\Programming\C#\InvestmentTracker\Backend\bin\Debug\net7.0\Swashbuckle.AspNetCore.SwaggerGen.dll
-C:\Users\josep\Documents\Programming\C#\InvestmentTracker\Backend\bin\Debug\net7.0\Swashbuckle.AspNetCore.SwaggerUI.dll
 C:\Users\josep\Documents\Programming\C#\InvestmentTracker\Backend\obj\Debug\net7.0\Backend.csproj.AssemblyReference.cache
 C:\Users\josep\Documents\Programming\C#\InvestmentTracker\Backend\obj\Debug\net7.0\Backend.GeneratedMSBuildEditorConfig.editorconfig
 C:\Users\josep\Documents\Programming\C#\InvestmentTracker\Backend\obj\Debug\net7.0\Backend.AssemblyInfoInputs.cache

@@ -1,30 +1,50 @@
 using Microsoft.AspNetCore.Mvc;
 using Backend.Models;
+using Backend.Services.Investments;
 
 namespace Backend.Controllers;
 
 [ApiController]
-[Route("[controller]")]
+[Route("investments")]
 public class InvestmentController : ControllerBase {
+
+  private readonly IInvestmentService _investmentService;
+
+  public InvestmentController(IInvestmentService investmentService) {
+    _investmentService = investmentService;
+  }
   
-  [HttpPost("investments")]
+  [HttpPost]
   public IActionResult createInvestment([FromBody] Investment investment) {
+    _investmentService.createInvestment(investment);
     return Ok();
   }
 
-  [HttpGet("investments")]
-  public IActionResult getInvestment() {
-    return Ok();
+  [HttpGet("{id}")]
+  public IActionResult get(uint id) {
+    Investment investment = _investmentService.getInvestment(id);
+    if (investment == null) {
+      return NotFound();
+    }
+    return Ok(investment);
   }
 
-  [HttpPut("investments/{id}")]
+  [HttpPut("{id}")]
   public IActionResult updateInvestment(uint id)  {
-    return Ok();
+    Investment investment = _investmentService.updateInvestment(id);
+    if (investment == null) {
+      return NotFound();
+    }
+    return Ok(investment);
   }
 
-  [HttpDelete("investments/{id}")]
+  [HttpDelete("{id}")]
   public IActionResult deleteInvestment(uint id)  {
-    return Ok();
+    bool success = _investmentService.deleteInvestment(id);
+    if (success) {
+      return Ok();
+    }
+
+    return NotFound();
   }
-  
 }
