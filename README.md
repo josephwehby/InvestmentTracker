@@ -1,7 +1,7 @@
-# InvestmentTracker (need new name as this one sucks)
+# InvestmentTracker (need new name as this one atrocious)
 ## Basic Idea and Tools
-- I own shares of stock in multiple brokerage accounts so why not aggreate the data to one spot
-    - I currently just use google sheets
+- I own shares of stock in multiple brokerage accounts (3) so why not aggreate the data to one spot
+    - I currently just use google sheets to manage all of them
 - Goal of this project is to get better at ASP.net, React, and PostgreSQL and to solve a problem
     - might use a managed database if I can find a decent free one
     - also need to interface with some sort of api to get stock quotes
