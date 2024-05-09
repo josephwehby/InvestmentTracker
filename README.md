@@ -1,4 +1,4 @@
-# InvestmentTracker (need new name as this one atrocious)
+# InvestmentTracker (need new name as this one is atrocious)
 ## Basic Idea and Tools
 - I own shares of stock in multiple brokerage accounts (3) so why not aggreate the data to one spot
     - I currently just use google sheets to manage all of them
