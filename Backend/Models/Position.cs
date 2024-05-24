@@ -1,5 +1,7 @@
 namespace Backend.Models;
 
+// this will be returned to the frontend
+
 public class Position {
   public string? ticker;
   public double current_price;

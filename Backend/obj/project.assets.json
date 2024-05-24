@@ -78,11 +78,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\josep\\Documents\\Programming\\C#\\InvestmentTracker\\Backend\\Backend.csproj",
+      "projectUniqueName": "C:\\Users\\josep\\Documents\\Programming\\Csharp\\InvestmentTracker\\Backend\\Backend.csproj",
       "projectName": "Backend",
-      "projectPath": "C:\\Users\\josep\\Documents\\Programming\\C#\\InvestmentTracker\\Backend\\Backend.csproj",
+      "projectPath": "C:\\Users\\josep\\Documents\\Programming\\Csharp\\InvestmentTracker\\Backend\\Backend.csproj",
       "packagesPath": "C:\\Users\\josep\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\josep\\Documents\\Programming\\C#\\InvestmentTracker\\Backend\\obj\\",
+      "outputPath": "C:\\Users\\josep\\Documents\\Programming\\Csharp\\InvestmentTracker\\Backend\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\josep\\AppData\\Roaming\\NuGet\\NuGet.Config",

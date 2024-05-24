@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "giO22H8xnz951fao7MBBrrdH27gPJf8tpqLR3CE9Xz6QNNfJ6ttI+IkQHZNQ41WCmV9sKaEq+2r9ZftHK8AVNw==",
+  "dgSpecHash": "Z5mwejwuDeWiAUYYyc2Ftje7M/K/y1SbnwmdAb5InOL32vfMjdyaGdG5tsIgMTuHqjCahif6ruqRDYYqoTKZOw==",
   "success": true,
-  "projectFilePath": "C:\\Users\\josep\\Documents\\Programming\\C#\\InvestmentTracker\\Backend\\Backend.csproj",
+  "projectFilePath": "C:\\Users\\josep\\Documents\\Programming\\Csharp\\InvestmentTracker\\Backend\\Backend.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\josep\\.nuget\\packages\\microsoft.aspnetcore.openapi\\7.0.11\\microsoft.aspnetcore.openapi.7.0.11.nupkg.sha512",
     "C:\\Users\\josep\\.nuget\\packages\\microsoft.openapi\\1.4.3\\microsoft.openapi.1.4.3.nupkg.sha512",
