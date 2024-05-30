@@ -1,4 +1,3 @@
-import React from "react";
 import PropTypes from "prop-types";
 
 type PortfolioValueProps = {
@@ -18,4 +17,5 @@ PortfolioValue.propTypes = {
   closed: PropTypes.number.isRequired,
   unrealized: PropTypes.number.isRequired
 };
+
 export default PortfolioValue;
