@@ -1,4 +1,5 @@
 import React from "react";
+import Home from "./pages/Home.tsx";
 import { Route, Routes } from "react-router-dom";
 
 function App() {
@@ -8,7 +9,7 @@ function App() {
       <div className="App">
         <div id="Pages">
           <Routes>
-            <Route path="/" ></Route>
+            <Route path="/" Component={Home} />
           </Routes>
         </div>
       </div>
