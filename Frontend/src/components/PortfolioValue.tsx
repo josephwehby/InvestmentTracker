@@ -1,15 +1,29 @@
 import PropTypes from "prop-types";
-
+import "../stylesheets/PortfolioValue.css";
 type PortfolioValueProps = {
   closed: number,
   unrealized: number
 };
 
 function PortfolioValue(props: PortfolioValueProps) {
+  
+  function getColor(value: number) {
+    if (value < 0) {
+      return "red";
+    }
+    return "green";
+  }
+  
   return (
     <div className="PortfolioValue">
-      <h3>Closed PnL: ${props.closed}</h3>
-      <h3>Unrealized PnL: ${props.unrealized}</h3>
+      <div className="summary">
+        <p>
+          Unrealized: <span style= {{ color: getColor(props.unrealized)}}>${props.unrealized}</span>
+        </p>
+        <p>
+          Closed: <span style= {{ color: getColor(props.closed)}}>${props.closed}</span>
+          </p>
+      </div>
     </div>
   );
 }

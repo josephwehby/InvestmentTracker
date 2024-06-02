@@ -2,7 +2,7 @@ import PortfolioValue from "../components/PortfolioValue";
 
 function Home() {
   return (
-    <PortfolioValue closed={2023.25} unrealized={10345.87} />
+    <PortfolioValue closed={2023.25} unrealized={-145.87} />
   );
 }
 
