@@ -60,3 +60,4 @@ C:\Users\josep\Documents\Programming\Csharp\InvestmentTracker\Backend\obj\Debug\
 C:\Users\josep\Documents\Programming\Csharp\InvestmentTracker\Backend\obj\Debug\net7.0\Backend.csproj.CopyComplete
 C:\Users\josep\Documents\Programming\Csharp\InvestmentTracker\Backend\obj\Debug\net7.0\Backend.genruntimeconfig.cache
 C:\Users\josep\Documents\Programming\Csharp\InvestmentTracker\Backend\obj\Debug\net7.0\ref\Backend.dll
+C:\Users\josep\Documents\Programming\Csharp\InvestmentTracker\Backend\bin\Debug\net7.0\Newtonsoft.Json.dll

@@ -4,6 +4,7 @@ using Backend.Services;
 using Backend.Services.Positions;
 using Backend.Services.Trades;
 using Microsoft.AspNetCore.Cors;
+using Newtonsoft.Json;
 
 namespace Backend.Controllers;
 
@@ -29,7 +30,8 @@ public class InvestmentController : ControllerBase {
   public ActionResult getAllPositions() {
     var positions = _positionService.getAllPositions();
     var temp = positions.ToList();
+    var json = JsonConvert.SerializeObject(temp);
     Console.WriteLine("[!] GET REQUEST: " + temp[0].ticker + " " + temp[0].quantity);
-    return Ok(positions);
+    return Ok(json);
   }
 }
