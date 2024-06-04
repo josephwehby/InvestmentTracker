@@ -13,12 +13,11 @@ public class PositionService : IPositionService {
     var trades = _tradeService.getAllTrades();
     var grouped_trades = trades.GroupBy(t => t.ticker);
     var positions = new List<Position>();
-    
-    
+     
     foreach (var group in grouped_trades) {
       positions.Add(createPosition(group.ToList()));
     }
-    
+
     return positions;
   }
 
@@ -34,6 +33,7 @@ public class PositionService : IPositionService {
     double current_shareprice = 100.0;
 
     foreach (var trade in trades) {
+      Console.WriteLine(trade.ticker + " " + trade.shares);
       quantity += trade.shares;
       unrealized_pnl += (trade.shares*current_shareprice) - (trade.shares*trade.buy_price);
       cost_basis += trade.shares*trade.buy_price;

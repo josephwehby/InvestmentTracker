@@ -11,15 +11,14 @@ builder.Services.AddCors(options =>
   options.AddPolicy(name: "AllowReact",
     policy =>
       {
-        policy.WithOrigins("http://localhost:5174/")
-        .AllowAnyHeader()
-        .AllowAnyMethod();
+        //policy.WithOrigins("http://localhost:5173").AllowAnyHeader().AllowAnyMethod();
+        policy.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();
       });
 });
 
 var app = builder.Build();
 app.UseHttpsRedirection();
+app.UseCors("AllowReact");
 app.UseAuthorization();
 app.MapControllers();
-app.UseCors("AllowReact");
 app.Run();

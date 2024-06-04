@@ -3,6 +3,7 @@ using Backend.Models;
 using Backend.Services;
 using Backend.Services.Positions;
 using Backend.Services.Trades;
+using Microsoft.AspNetCore.Cors;
 
 namespace Backend.Controllers;
 
@@ -19,14 +20,16 @@ public class InvestmentController : ControllerBase {
   }
   
   [HttpPost]
-  public IActionResult addTrade([FromBody] Trade trade) {
+  public ActionResult addTrade([FromBody] Trade trade) {
     _tradeService.addTrade(trade);
     return Ok();
   }
 
   [HttpGet("positions")]
-  public IActionResult getAllPositions() {
+  public ActionResult getAllPositions() {
     var positions = _positionService.getAllPositions();
+    var temp = positions.ToList();
+    Console.WriteLine("[!] GET REQUEST: " + temp[0].ticker + " " + temp[0].quantity);
     return Ok(positions);
   }
 }

@@ -5,7 +5,7 @@ function Positions() {
   const [positions, setPositions] = useState<InvestmentPosition[]>([]);
   
   async function getPositions() {
-    const response = await fetch("https://localhost:5144/investments/positions");
+    const response = await fetch("https://localhost:7274/investments/positions");
     if (!response.ok) {
       throw new Error("Problem fetching api");
     }
