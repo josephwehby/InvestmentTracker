@@ -37,13 +37,13 @@ function Positions() {
           {positions.map((position) => (
             <tr key={position.ticker}>
               <td>{position.ticker}</td>
-              <td>{position.current_price}</td>
-              <td>{position.avg_cost}</td>
-              <td>{position.quantity}</td>
-              <td>{position.cost_basis}</td>
-              <td>{position.market_value}</td> 
-              <td>{position.fees}</td>
-              <td>{position.pnl}</td>
+              <td>${position.current_price.toFixed(2)}</td>
+              <td>${position.avg_cost.toFixed(2)}</td>
+              <td>{position.quantity.toFixed(2)}</td>
+              <td>${position.cost_basis.toFixed(2)}</td>
+              <td>${position.market_value.toFixed(2)}</td> 
+              <td>${position.fees.toFixed(2)}</td>
+              <td>${position.pnl.toFixed(2)}</td>
             </tr>
           ))}
         </tbody>
