@@ -10,9 +10,7 @@ function Positions() {
       throw new Error("Problem fetching api");
     }
     const data = await response.json();
-    console.log(data);
-    setPositions(data);
-    
+    setPositions(data);  
   }  
   
   useEffect(() => {
@@ -22,6 +20,34 @@ function Positions() {
   return (
     <div>
       <p>Positions</p>
+      <table>
+        <thead>
+          <tr>
+            <th>Ticker</th>
+            <th>Current Price</th>
+            <th>Avg Cost</th>
+            <th>Quantity</th>
+            <th>Cost Basis</th>
+            <th>Market Value</th>
+            <th>Fees</th>
+            <th>PnL</th>
+          </tr>
+        </thead>
+        <tbody>
+          {positions.map((position) => (
+            <tr key={position.ticker}>
+              <td>{position.ticker}</td>
+              <td>{position.current_price}</td>
+              <td>{position.avg_cost}</td>
+              <td>{position.quantity}</td>
+              <td>{position.cost_basis}</td>
+              <td>{position.market_value}</td> 
+              <td>{position.fees}</td>
+              <td>{position.pnl}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table> 
     </div>
   );
 }
