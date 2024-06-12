@@ -1,11 +1,14 @@
 import PortfolioValue from "../components/PortfolioValue";
 import Positions from "../components/Positions";
+import { UnrealizedGainsProvider } from "../contexts/UnrealizedGainsContext";
 
 function Home() {
   return (
     <>
-      <PortfolioValue closed={2023.25} unrealized={-145.87} />
-      <Positions />
+      <UnrealizedGainsProvider>
+        <PortfolioValue />
+        <Positions />  
+      </UnrealizedGainsProvider>
     </>
   );
 }

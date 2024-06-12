@@ -1,9 +1,17 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { InvestmentPosition } from "../abstractions/InvestmentPosition";
+import UnrealizedGainsContext from "../contexts/UnrealizedGainsContext";
 
 function Positions() {
   const [positions, setPositions] = useState<InvestmentPosition[]>([]);
+  const context = useContext(UnrealizedGainsContext);
+
+  if (!context) {
+    throw new Error("need unrealized gains provider");
+  }
   
+  const { setUnrealizedGains } = context;
+
   async function getPositions() {
     const response = await fetch("https://localhost:7274/investments/positions");
     if (!response.ok) {
@@ -11,6 +19,8 @@ function Positions() {
     }
     const data = await response.json();
     setPositions(data);  
+    const totalUnrealizedGains = data.reduce((sum: number, position: InvestmentPosition) => sum + position.pnl, 0);
+    setUnrealizedGains(totalUnrealizedGains);
   }  
   
   useEffect(() => {
