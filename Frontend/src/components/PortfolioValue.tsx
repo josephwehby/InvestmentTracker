@@ -31,10 +31,10 @@ function PortfolioValue() {
     <div className="PortfolioValue">
       <div className="summary">
         <p>
-          Unrealized: <span style= {{ color: getColor(unrealizedGains)}}>${unrealizedGains}</span>
+          Unrealized: <span style= {{ color: getColor(unrealizedGains)}}>${unrealizedGains.toFixed(2)}</span>
         </p>
         <p>
-          Closed: <span style= {{ color: getColor(closed)}}>${closed}</span>
+          Closed: <span style= {{ color: getColor(closed)}}>${closed.toFixed(2)}</span>
           </p>
       </div>
     </div>
