@@ -1,6 +1,7 @@
 import { useEffect, useState, useContext } from "react";
 import { InvestmentPosition } from "../abstractions/InvestmentPosition";
 import UnrealizedGainsContext from "../contexts/UnrealizedGainsContext";
+import "../stylesheets/Positions.css";
 
 function Positions() {
   const [positions, setPositions] = useState<InvestmentPosition[]>([]);
@@ -11,6 +12,14 @@ function Positions() {
   }
   
   const { setUnrealizedGains } = context;
+
+  function getColor(value: number) {
+    if (value > 0) {
+      return "green";
+    }
+
+    return "red";
+  }
 
   async function getPositions() {
     const response = await fetch("https://localhost:7274/investments/positions");
@@ -29,7 +38,6 @@ function Positions() {
   
   return (
     <div>
-      <p>Positions</p>
       <table>
         <thead>
           <tr>
@@ -53,7 +61,7 @@ function Positions() {
               <td>${position.cost_basis.toFixed(2)}</td>
               <td>${position.market_value.toFixed(2)}</td> 
               <td>${position.fees.toFixed(2)}</td>
-              <td>${position.pnl.toFixed(2)}</td>
+              <td> <span style={{color: getColor(position.pnl)}}>${position.pnl.toFixed(2)}</span> </td>
             </tr>
           ))}
         </tbody>
