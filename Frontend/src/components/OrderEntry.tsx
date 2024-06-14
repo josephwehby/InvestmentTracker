@@ -8,10 +8,8 @@ function OrderEntry() {
   const [ordertype, setOrdertype] = useState<string>("buy");
 
   function checkNumericalInput(e: ChangeEvent<HTMLInputElement>) {
-    const { id, value } = e.target;
-    const clean = value.replace(/[^\d.-]/g, "");
-    console.log(clean);
-    const clean_num = clean === "" ? 0 : parseFloat(clean);
+    const { id, value } = e.target;    
+    const clean_num = parseFloat(value);
     if(id === "shares") {
       setShares(clean_num);
     } else {
@@ -22,7 +20,6 @@ function OrderEntry() {
   function checkStringInput(e: ChangeEvent<HTMLInputElement>) {
     const { value } = e.target;
     const clean = value.replace(/\d/g, "");
-
     setTicker(clean.toUpperCase());
   }
 
@@ -31,8 +28,8 @@ function OrderEntry() {
       <div className="order-entry">
         <form>
           <input type="text" id="ticker" placeholder="Ticker" value={ticker} onChange={checkStringInput} required />
-          <input type="text" id="shares" placeholder="Shares" value={shares} onChange={checkNumericalInput} required />
-          <input type="text" id="price" placeholder="Price" value={price} onChange={checkNumericalInput} required/>
+          <input type="number" step=".1" id="shares" placeholder="Shares" value={shares} onChange={checkNumericalInput} required />
+          <input type="number" step=".1" id="price" placeholder="Price" value={price} onChange={checkNumericalInput} required/>
           <select id="order-type" value={ordertype} onChange={(e) => setOrdertype(e.target.value)}>
             <option value="buy">Buy</option>
             <option value="sell">Sell</option>
