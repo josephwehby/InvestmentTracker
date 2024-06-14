@@ -1,3 +1,4 @@
+import OrderEntry from "../components/OrderEntry";
 import PortfolioValue from "../components/PortfolioValue";
 import Positions from "../components/Positions";
 import { UnrealizedGainsProvider } from "../contexts/UnrealizedGainsContext";
@@ -8,6 +9,7 @@ function Home() {
     <>
       <UnrealizedGainsProvider>
         <PortfolioValue />
+        <OrderEntry />
         <Positions />  
       </UnrealizedGainsProvider>
     </>
