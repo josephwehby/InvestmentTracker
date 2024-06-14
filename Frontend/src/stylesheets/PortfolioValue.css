@@ -1,14 +1,16 @@
 .PortfolioValue {
   font-family:'Courier New', Courier, monospace;
-  font-size: 20px;
+  font-size: 18px;
   font-weight: bold;
-  background-color: rgba(248, 248, 248, 0.932);
-  width: 400px;
+  color: white;
+  background-color: #2a3338; 
+  width: 350px;
   display: grid;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  border-radius: 5px;
   margin-top: 30px;
   margin-left: 10px;
+  padding-top: 7px;
+  padding-bottom: 7px;
 }
 
 .summary {
