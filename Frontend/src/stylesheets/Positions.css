@@ -27,10 +27,14 @@ tbody tr:nth-of-type(odd) {
   background-color: rgb(61,68,73);
 }
 
+tbody tr:nth-of-type(odd):hover {
+  background-color: rgba(61,68,73, .7);
+}
+
 tbody tr:nth-of-type(even) {
   background-color: #2a3338;
 }
 
-tbody tr:last-of-type {
-  border-bottom: 2px solid  rgb(65, 64, 64); 
+tbody tr:nth-of-type(even):hover {
+  background-color: rgba(42,51,56,.7);
 }
