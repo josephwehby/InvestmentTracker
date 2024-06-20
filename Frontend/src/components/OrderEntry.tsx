@@ -27,19 +27,27 @@ function OrderEntry() {
   }
 
   async function addTrade() {
-    const newTrade = {
-      'ticker': ticker,
-      'trade_type': ordertype,
-      'shares': shares,
-      'buy_price': price,
-      'fees': fees
-    };
+    const response = await fetch("https://localhost:7274/investments/", {
+      method: 'POST',
+      headers: {
+        'Accept':'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        'ticker': ticker,
+        'trade_type': ordertype,
+        'shares': shares,
+        'buy_price': price,
+        'fees': fees
+      })
+    });
+    console.log(response);
   }
 
   return (
     <>
       <div className="order-entry">
-        <form>
+        <form onSubmit={addTrade}>
           <input type="text" id="ticker" placeholder="Ticker" value={ticker} onChange={checkStringInput} required />
           <input type="number" step=".1" id="shares" placeholder="Shares" value={shares} onChange={checkNumericalInput} required />
           <input type="number" step=".1" id="price" placeholder="Price" value={price} onChange={checkNumericalInput} required/>
