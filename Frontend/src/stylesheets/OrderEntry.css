@@ -6,5 +6,66 @@
   display: flex;
   flex-direction: column;
   gap: 10px;
-  max-width: 200px;
+  max-width: 250px;
+  background-color: #2a3338; 
+  padding: 20px;
+  border-radius: 5px;
+}
+
+.form-group {
+ display: flex;
+ flex-direction: row; 
+ align-items: center;
+}
+
+.horizontal {
+  display: flex;
+  justify-content: space-between;
+}
+
+.form-group, .form-group-horizontal {
+  color: white;
+  margin-bottom: 5px;
+}
+
+span {
+  margin-right: 10px;
+  width: 100px;
+}
+
+#ticker {
+  border: none;
+  background-color: rgb(61,68,73);
+  color: white;
+  font-size: 14px;
+  border-radius: 5px;
+  padding: 4px;
+}
+
+#shares, #price, #fees {
+  border: none;
+  background-color: rgb(61,68,73);
+  color: white;
+  font-size: 14px;
+  border-radius: 5px;
+  padding: 4px;;
+}
+
+#submit-btn, #order-type {
+  width: 100px;
+  height: 30px;
+  padding: 8px;
+  border-radius: 5px;
+  border: none;
+  color: white;
+  font-weight: bold;
+  background-color: rgb(61,68,73);
+}
+
+#submit-btn:hover {
+  background-color: rgba(61,68,73, .7);
+}
+
+input, select {
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
 }

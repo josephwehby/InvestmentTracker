@@ -48,15 +48,37 @@ function OrderEntry() {
     <>
       <div className="order-entry">
         <form onSubmit={addTrade}>
-          <input type="text" id="ticker" placeholder="Ticker" value={ticker} onChange={checkStringInput} required />
-          <input type="number" step=".1" id="shares" placeholder="Shares" value={shares} onChange={checkNumericalInput} required />
-          <input type="number" step=".1" id="price" placeholder="Price" value={price} onChange={checkNumericalInput} required/>
-          <input type="number" step=".1" id="fees" placeholder="Fees" value={fees} onChange={checkNumericalInput} required/>
-          <select id="order-type" value={ordertype} onChange={(e) => setOrdertype(e.target.value)}>
-            <option value="buy">Buy</option>
-            <option value="sell">Sell</option>
-          </select>
-          <input type="submit" value="Submit"></input>
+          <div className="form-group">
+            <span>Ticker:</span>
+            <input type="text" id="ticker" placeholder="SPY" value={ticker} onChange={checkStringInput} required />
+          </div>
+          
+          <div className="form-group">
+            <span>Shares:</span>
+            <input type="number" step=".1" id="shares" placeholder="Shares" value={shares} onChange={checkNumericalInput} required />
+          </div>
+          
+          <div className="form-group">
+            <span>Price:</span>
+            <input type="number" step=".1" id="price" placeholder="Price" value={price} onChange={checkNumericalInput} required/>
+          </div>
+
+          <div className="form-group">
+            <span>Fees:</span>
+            <input type="number" step=".1" id="fees" placeholder="Fees" value={fees} onChange={checkNumericalInput} required/>
+          </div>
+
+          <div className="horizontal">
+            <div className="form-group-horizontal">
+              <select id="order-type" value={ordertype} onChange={(e) => setOrdertype(e.target.value)}>
+                <option value="buy">Buy</option>
+                <option value="sell">Sell</option>
+              </select>
+            </div>
+            <div className="form-group-horizontal">
+              <input id="submit-btn" type="submit" value="Submit"></input>
+            </div>
+          </div>
         </form>
       </div>
     </>
