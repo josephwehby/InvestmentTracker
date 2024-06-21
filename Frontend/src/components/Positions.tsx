@@ -26,6 +26,14 @@ function Positions() {
     if (!response.ok) {
       throw new Error("Problem fetching api");
     }
+    
+    if (response.status === 204) {
+      console.log("No current positions.");
+      setPositions([]);
+      setUnrealizedGains(0);
+      return;
+    }
+
     const data = await response.json();
     setPositions(data);  
     const totalUnrealizedGains = data.reduce((sum: number, position: InvestmentPosition) => sum + position.pnl, 0);

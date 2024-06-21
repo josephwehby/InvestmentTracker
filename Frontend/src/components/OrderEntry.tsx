@@ -27,21 +27,25 @@ function OrderEntry() {
   }
 
   async function addTrade() {
-    const response = await fetch("https://localhost:7274/investments/", {
-      method: 'POST',
-      headers: {
-        'Accept':'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        'ticker': ticker,
-        'trade_type': ordertype,
-        'shares': shares,
-        'buy_price': price,
-        'fees': fees
-      })
-    });
-    console.log(response);
+    try{
+      const response = await fetch("https://localhost:7274/investments/add", {
+        method: 'POST',
+        headers: {
+          'Accept':'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          'ticker': ticker,
+          'trade_type': ordertype,
+          'shares': shares,
+          'buy_price': price,
+          'fees': fees
+        })
+      });
+      console.log(response);
+    } catch (error) {
+      console.error("[!] ERROR: ", error);
+    }
   }
 
   return (

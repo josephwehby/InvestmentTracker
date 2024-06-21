@@ -20,15 +20,19 @@ public class InvestmentController : ControllerBase {
     _positionService = positionService;
   }
   
-  [HttpPost]
+  [HttpPost("add")]
   public ActionResult addTrade([FromBody] Trade trade) {
     _tradeService.addTrade(trade);
+    Console.WriteLine("Trade added");
     return Ok();
   }
 
   [HttpGet("positions")]
   public ActionResult getAllPositions() {
     var positions = _positionService.getAllPositions();
+    if (!positions.Any()) {
+      return NoContent();
+    }
     var temp = positions.ToList();
     var json = JsonConvert.SerializeObject(temp);
     Console.WriteLine("[!] GET REQUEST: " + temp[0].ticker + " " + temp[0].quantity);

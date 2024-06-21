@@ -11,6 +11,9 @@ public class PositionService : IPositionService {
   }
   public IEnumerable<Position> getAllPositions() {
     var trades = _tradeService.getAllTrades();
+    
+    if (!trades.Any()) return Enumerable.Empty<Position>();
+
     var grouped_trades = trades.GroupBy(t => t.ticker);
     var positions = new List<Position>();
      
