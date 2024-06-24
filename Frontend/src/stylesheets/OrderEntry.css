@@ -1,7 +1,3 @@
-.order-entry {
-  margin-top: 20px;
-}
-
 .order-entry form {
   display: flex;
   flex-direction: column;

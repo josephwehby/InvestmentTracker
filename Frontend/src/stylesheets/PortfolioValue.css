@@ -5,10 +5,9 @@
   color: white;
   background-color: #2a3338; 
   width: 350px;
+  height: 50px;
   display: grid;
   border-radius: 5px;
-  margin-top: 30px;
-  margin-left: 10px;
   padding-top: 7px;
   padding-bottom: 7px;
 }

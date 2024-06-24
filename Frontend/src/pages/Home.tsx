@@ -7,11 +7,17 @@ import "../stylesheets/Home.css";
 function Home() {
   return (
     <>
-      <UnrealizedGainsProvider>
-        <PortfolioValue />
-        <OrderEntry />
-        <Positions />  
-      </UnrealizedGainsProvider>
+      <div className="main">
+        <UnrealizedGainsProvider>
+          <div className="first-row">
+            <PortfolioValue />
+            <OrderEntry />
+          </div>
+          <div className="second-row">
+            <Positions />  
+          </div>
+        </UnrealizedGainsProvider>
+      </div>
     </>
   );
 }
