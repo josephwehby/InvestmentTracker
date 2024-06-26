@@ -22,20 +22,23 @@ public class InvestmentController : ControllerBase {
   
   [HttpPost("add")]
   public ActionResult addTrade([FromBody] Trade trade) {
-    _tradeService.addTrade(trade);
-    Console.WriteLine("Trade added");
-    return Ok();
+    bool result = _tradeService.addTrade(trade);
+    if (result) {
+      return Ok();
+    }
+    
+    return StatusCode(500, "Error while adding trade");
   }
 
   [HttpGet("positions")]
   public ActionResult getAllPositions() {
+    Console.WriteLine("[!] GET request");
     var positions = _positionService.getAllPositions();
     if (!positions.Any()) {
       return NoContent();
     }
     var temp = positions.ToList();
     var json = JsonConvert.SerializeObject(temp);
-    Console.WriteLine("[!] GET REQUEST: " + temp[0].ticker + " " + temp[0].quantity);
     return Ok(json);
   }
 }

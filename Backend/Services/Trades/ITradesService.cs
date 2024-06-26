@@ -3,7 +3,7 @@ using Backend.Models;
 
 namespace Backend.Services.Trades;
 public interface ITradeService {
-  void addTrade(Trade trade);
+  bool addTrade(Trade trade);
   void deleteTrade(uint id);
   IEnumerable<Trade> getAllTrades();
 }

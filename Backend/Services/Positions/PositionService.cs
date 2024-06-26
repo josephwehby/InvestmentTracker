@@ -32,11 +32,11 @@ public class PositionService : IPositionService {
     decimal cost_basis = 0;
     decimal market_value = 0;
     decimal fees = 0;
+    
     // api for this but harcoding for now
     decimal current_shareprice = 100;
 
     foreach (var trade in trades) {
-      Console.WriteLine(trade.ticker + " " + trade.shares);
       quantity += trade.shares;
       unrealized_pnl += (trade.shares*current_shareprice) - (trade.shares*trade.buy_price);
       cost_basis += trade.shares*trade.buy_price;

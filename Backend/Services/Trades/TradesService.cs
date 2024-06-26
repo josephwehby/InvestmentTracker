@@ -10,13 +10,15 @@ public class TradeService : ITradeService {
     _context = context;
   }
 
-  public async void addTrade(Trade trade) {
+  public bool addTrade(Trade trade) {
     try {
       _context.trades.Add(trade);
-      await _context.SaveChangesAsync();
+      _context.SaveChangesAsync();
       Console.WriteLine("[!] Added Trade for ticker " + trade.ticker + " at " + trade.buy_price + " for " + trade.shares + " shares");
+      return true;
     } catch (Exception e) {
       Console.WriteLine("[!] Error " + e);
+      return false;
     }
   }
 
