@@ -26,14 +26,14 @@ public class PositionService : IPositionService {
 
   private Position createPosition(List<Trade> trades) {
     Position position = new Position();
-    double quantity = 0;
-    double unrealized_pnl = 0;      
-    double avg_price = 0;
-    double cost_basis = 0;
-    double market_value = 0;
-    double fees = 0;
+    decimal quantity = 0;
+    decimal unrealized_pnl = 0;      
+    decimal avg_price = 0;
+    decimal cost_basis = 0;
+    decimal market_value = 0;
+    decimal fees = 0;
     // api for this but harcoding for now
-    double current_shareprice = 100.0;
+    decimal current_shareprice = 100;
 
     foreach (var trade in trades) {
       Console.WriteLine(trade.ticker + " " + trade.shares);

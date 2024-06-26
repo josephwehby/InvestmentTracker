@@ -1,25 +1,30 @@
+using Backend.Data;
 using Backend.Models;
 namespace Backend.Services.Trades;
 
 public class TradeService : ITradeService {
   
-  private static readonly List<Trade> _trades = new();
+  private readonly InvestmentsDbContext _context;
   
-  public void addTrade(Trade trade) {
-    _trades.Add(trade);
+  public TradeService(InvestmentsDbContext context) {
+    _context = context;
   }
 
-  public void deleteTrade(uint id) {
-    for (int i = 0; i  < _trades.Count; i++) {
-      if (_trades[i].id == id) {
-        _trades.RemoveAt(i);
-        break;
-      }
+  public async void addTrade(Trade trade) {
+    try {
+      _context.trades.Add(trade);
+      await _context.SaveChangesAsync();
+      Console.WriteLine("[!] Added Trade for ticker " + trade.ticker + " at " + trade.buy_price + " for " + trade.shares + " shares");
+    } catch (Exception e) {
+      Console.WriteLine("[!] Error " + e);
     }
   }
 
+  public void deleteTrade(uint id) {
+  }
+
   public IEnumerable<Trade> getAllTrades() {
-    return _trades;
+    return _context.trades.ToList();
   }
   
 }

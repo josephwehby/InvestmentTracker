@@ -3,13 +3,13 @@ namespace Backend.Models;
 // this will be returned to the frontend
 
 public class Position {
-  public string? ticker;
-  public double current_price;
-  public double avg_cost;
-  public double quantity;
-  public double cost_basis;
-  public double market_value;
-  public double fees;
-  public double pnl;
-  public double percent_gain;
+  public string ticker;
+  public decimal current_price;
+  public decimal avg_cost;
+  public decimal quantity;
+  public decimal cost_basis;
+  public decimal market_value;
+  public decimal fees;
+  public decimal pnl;
+  public decimal percent_gain;
 }

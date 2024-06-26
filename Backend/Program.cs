@@ -1,11 +1,14 @@
 using Backend.Services.Trades;
 using Backend.Services.Positions;
+using Backend.Data;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 builder.Services.AddScoped<ITradeService, TradeService>();
 builder.Services.AddScoped<IPositionService, PositionService>();
+builder.Services.AddDbContext<InvestmentsDbContext>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 builder.Services.AddCors(options =>
 {
   options.AddPolicy(name: "AllowReact",
