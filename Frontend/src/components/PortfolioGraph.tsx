@@ -25,7 +25,7 @@ function customeToolTip({active, payload, label} : TooltipProps<ValueType, NameT
     return (
       <div className='tooltip'>
         <h4>Date: {label}</h4>
-        <p>PnL: ${`${payload?.[0].value}`}</p>
+        <h4>PnL: ${`${payload?.[0].value}`}</h4>
       </div>
       );
     }
