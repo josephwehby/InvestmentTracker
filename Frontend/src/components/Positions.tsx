@@ -1,6 +1,6 @@
 import { useEffect, useState, useContext } from "react";
 import { InvestmentPosition } from "../abstractions/InvestmentPosition";
-import ReloadContext, { ReloadContextProvider }  from "../contexts/ReloadContext";
+import ReloadContext from "../contexts/ReloadContext";
 import UnrealizedGainsContext from "../contexts/UnrealizedGainsContext";
 import "../stylesheets/Positions.css";
 
