@@ -1,5 +1,6 @@
+import ReloadContext from "../contexts/ReloadContext";
 import "../stylesheets/OrderEntry.css";
-import { useState, ChangeEvent } from "react";
+import { useState, ChangeEvent, useContext } from "react";
 
 function OrderEntry() {
   const [ticker, setTicker] = useState<string>("");
@@ -7,6 +8,13 @@ function OrderEntry() {
   const [price, setPrice] = useState<number>(0);
   const [ordertype, setOrdertype] = useState<string>("buy");
   const [fees, setFees] = useState<number>(0);
+  const context = useContext(ReloadContext);
+  
+  if (!context) {
+    throw new Error("need reload context provider");
+  }
+  
+  const { reload, setReload } = context;
 
   function checkNumericalInput(e: ChangeEvent<HTMLInputElement>) {
     const { id, value } = e.target;    
@@ -43,15 +51,21 @@ function OrderEntry() {
         })
       });
       console.log(response);
+      setReload(!reload);
     } catch (error) {
       console.error("[!] ERROR: ", error);
     }
   }
 
+  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    addTrade();
+  }
+
   return (
     <>
       <div className="order-entry">
-        <form onSubmit={addTrade}>
+        <form onSubmit={handleSubmit}>
           <div className="form-group">
             <span>Ticker:</span>
             <input type="text" id="ticker" placeholder="SPY" value={ticker} onChange={checkStringInput} required />

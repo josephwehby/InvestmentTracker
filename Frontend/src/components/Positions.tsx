@@ -1,17 +1,24 @@
 import { useEffect, useState, useContext } from "react";
 import { InvestmentPosition } from "../abstractions/InvestmentPosition";
+import ReloadContext, { ReloadContextProvider }  from "../contexts/ReloadContext";
 import UnrealizedGainsContext from "../contexts/UnrealizedGainsContext";
 import "../stylesheets/Positions.css";
 
 function Positions() {
   const [positions, setPositions] = useState<InvestmentPosition[]>([]);
   const context = useContext(UnrealizedGainsContext);
-
+  const r_context = useContext(ReloadContext);
+  
   if (!context) {
     throw new Error("need unrealized gains provider");
   }
+
+  if (!r_context) {
+    throw new Error("need reload context provider");
+  }
   
   const { setUnrealizedGains } = context;
+  const { reload } = r_context;
 
   function getColor(value: number) {
     if (value > 0) {
@@ -42,7 +49,7 @@ function Positions() {
   
   useEffect(() => {
     getPositions();
-  }, []);
+  }, [reload]);
   
   return (
     <div>
