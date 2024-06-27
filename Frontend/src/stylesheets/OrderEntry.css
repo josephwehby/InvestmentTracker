@@ -2,10 +2,12 @@
   display: flex;
   flex-direction: column;
   gap: 10px;
-  max-width: 250px;
+  max-width: 275px;
+  height: 220px;
   background-color: #2a3338; 
   padding: 20px;
   border-radius: 5px;
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
 }
 
 .form-group {
@@ -51,6 +53,7 @@ span {
   width: 100px;
   height: 30px;
   padding: 8px;
+  margin-top: 10px;
   border-radius: 5px;
   border: none;
   color: white;

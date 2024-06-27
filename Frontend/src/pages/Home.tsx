@@ -1,4 +1,5 @@
 import OrderEntry from "../components/OrderEntry";
+import PortfolioGraph from "../components/PortfolioGraph";
 import PortfolioValue from "../components/PortfolioValue";
 import Positions from "../components/Positions";
 import { ReloadContextProvider } from "../contexts/ReloadContext";
@@ -11,8 +12,9 @@ function Home() {
       <div className="main">
         <UnrealizedGainsProvider>
           <ReloadContextProvider>
+            <PortfolioValue />
             <div className="first-row">
-              <PortfolioValue />
+              <PortfolioGraph />
               <OrderEntry />
             </div>
             <div className="second-row">
