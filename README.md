@@ -10,3 +10,10 @@
 - This will only be accessible through my internal network so I most likely wont do any authentication
     - If I do any authentication I might just write it myself for fun/practice
 - This will all be hosted on my RaspberryPi which I have had for 3 years and have yet to find a use for
+
+
+### To Do
+- get stock price api
+- add mutual tls authentication 
+- create table to store historic pnl of portfolio
+- create cron job which will run at end of each day to calculate portfolio pnl which will be displayed in graph
