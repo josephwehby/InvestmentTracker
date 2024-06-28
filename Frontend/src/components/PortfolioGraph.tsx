@@ -9,14 +9,14 @@ interface DataPoint {
 
 const data: DataPoint[] = [
   { day: 1, pnl: 20 },
-  { day: 2, pnl: -15 },
+  { day: 2, pnl: 15 },
   { day: 3, pnl: 5 },
   { day: 4, pnl: 10 },
-  { day: 5, pnl: -8 },
+  { day: 5, pnl: 20 },
   { day: 6, pnl: 12 },
-  { day: 7, pnl: -4 },
+  { day: 7, pnl: 3 },
   { day: 8, pnl: 18 },
-  { day: 9, pnl: -6 },
+  { day: 9, pnl: 10 },
   { day: 10, pnl: 7 },
 ];
 
@@ -34,10 +34,16 @@ function customeToolTip({active, payload, label} : TooltipProps<ValueType, NameT
 function PortfolioGraph() {
 
   return (
-    <ResponsiveContainer width="70%" height={300}>
+    <ResponsiveContainer width="70%" height={400}>
       <AreaChart data={data}>
-        <Area type="monotone" dataKey="pnl"/>
-        <XAxis dataKey="day" />
+      <defs>
+        <linearGradient id="color" x1="0" y1="0" x2="0" y2="1">
+         <stop offset="0%" stopColor="#2451B7" stopOpacity={0.4}></stop> 
+         <stop offset="75%" stopColor="#2451B7" stopOpacity={0.05}></stop> 
+        </linearGradient>
+      </defs>
+        <Area dataKey="pnl" fill="url(#color)" />
+        <XAxis dataKey="day" tickLine={false} tickFormatter={(tickItem) => tickItem%2 === 0 ? tickItem : ""}/>
         <YAxis dataKey="pnl" axisLine={false} tickLine={false} tickFormatter={ (n:number) => `$${n.toFixed(2)}`}/>
         <Tooltip content={customeToolTip}/>
         <CartesianGrid opacity={0.1} vertical={false} />
