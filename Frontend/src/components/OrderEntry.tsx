@@ -46,8 +46,8 @@ function OrderEntry() {
           'ticker': ticker,
           'trade_type': ordertype,
           'shares': shares,
-          'buy_price': price,
-          'fees': fees
+          'price': price,
+          'fees': fees,
         })
       });
       console.log(response);

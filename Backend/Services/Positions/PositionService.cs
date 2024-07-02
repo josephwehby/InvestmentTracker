@@ -38,10 +38,10 @@ public class PositionService : IPositionService {
 
     foreach (var trade in trades) {
       quantity += trade.shares;
-      unrealized_pnl += (trade.shares*current_shareprice) - (trade.shares*trade.buy_price);
-      cost_basis += trade.shares*trade.buy_price;
+      unrealized_pnl += (trade.shares*current_shareprice) - (trade.shares*trade.price);
+      cost_basis += trade.shares*trade.price;
       market_value += trade.shares * current_shareprice;
-      avg_price += trade.buy_price;
+      avg_price += trade.price;
       fees += trade.fees;
     }
     

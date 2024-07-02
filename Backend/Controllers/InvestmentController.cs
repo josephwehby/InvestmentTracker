@@ -22,6 +22,7 @@ public class InvestmentController : ControllerBase {
   
   [HttpPost("add")]
   public async Task<ActionResult> addTrade([FromBody] Trade trade) {
+    Console.WriteLine("[!] POST request");
     bool result = await _tradeService.addTrade(trade);
     if (result) {
       return Ok();
