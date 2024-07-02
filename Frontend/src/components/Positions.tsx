@@ -48,7 +48,11 @@ function Positions() {
   }  
   
   useEffect(() => {
+    const timer = setInterval(() => {
+      getPositions();
+    }, 1*60*1000);  
     getPositions();
+    return () => clearInterval(timer);
   }, [reload]);
   
   return (
