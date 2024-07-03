@@ -39,4 +39,14 @@ public class InvestmentsDbContext : DbContext {
   public async Task<ClosedPnL> ClosedPnL() {
     return await closed_pnl.SingleOrDefaultAsync();
   }
+
+  public async Task<bool> updateClosedPnL(decimal new_pnl) {
+    var closed = await closed_pnl.SingleOrDefaultAsync();
+    
+    if (closed == null) return false;
+    
+    closed.pnl += new_pnl;
+    await SaveChangesAsync();
+    return true;
+  }
 }

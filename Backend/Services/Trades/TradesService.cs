@@ -52,7 +52,7 @@ public class TradeService : ITradeService {
       }
     }
     
-    Console.WriteLine(profit);
+    await _context.updateClosedPnL(profit);
 
     foreach (var trade_to_delete in to_delete) await _context.deleteTrade(trade_to_delete);
     

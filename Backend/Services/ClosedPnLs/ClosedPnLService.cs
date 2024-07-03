@@ -15,7 +15,6 @@ public class ClosedPnLService : IClosedPnLService {
     if (closedpnl == null) {
       return 0;
     }
-    Console.WriteLine(closedpnl.pnl);
     return closedpnl.pnl;
   }
 }

@@ -1,16 +1,23 @@
 import "../stylesheets/PortfolioValue.css";
 import UnrealizedGainsContext from "../contexts/UnrealizedGainsContext";
+import ReloadContext from "../contexts/ReloadContext";
 import { useState, useContext, useEffect } from "react";
 
 function PortfolioValue() {
   const [closed, setClosed] = useState(0);
   const context = useContext(UnrealizedGainsContext);
-  
+  const reload_context = useContext(ReloadContext);
+
   if (!context) {
     throw new Error("need unrealized gains provider");
   }
   
+  if (!reload_context) {
+    throw new Error("new reload context");
+  }
+
   const { unrealizedGains } = context;
+  const { reload } = reload_context;
 
   function getColor(value: number) {
     if (value < 0) {
@@ -34,7 +41,7 @@ function PortfolioValue() {
 
   useEffect(() => {
     getClosedPnL();
-  }, []);
+  }, [reload]);
   
   return (
     <div className="PortfolioValue">
