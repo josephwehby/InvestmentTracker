@@ -20,10 +20,17 @@ function PortfolioValue() {
   }
 
   async function getClosedPnL() {
-    const respone = await fetch("https://localhost:7274/investments/closed");
-    console.log(respone);
+    try {
+      const respone = await fetch("https://localhost:7274/investments/closed");
+      if (!respone.ok) {
+        throw new Error("[!] Failed to fetch closesd pnl");
+      }
+      const pnl = await respone.json();
+      setClosed(pnl);
+    } catch (error) {
+      console.error("[!] Error fetching closed pnl");
+    } 
   }
-
 
   useEffect(() => {
     getClosedPnL();
