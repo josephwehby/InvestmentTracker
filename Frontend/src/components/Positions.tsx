@@ -24,7 +24,6 @@ function Positions() {
     if (value > 0) {
       return "green";
     }
-
     return "red";
   }
 

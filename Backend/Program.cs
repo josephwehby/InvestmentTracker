@@ -2,11 +2,13 @@ using Backend.Services.Trades;
 using Backend.Services.Positions;
 using Backend.Data;
 using Microsoft.EntityFrameworkCore;
+using Backend.Services.ClosedPnLs;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 builder.Services.AddScoped<ITradeService, TradeService>();
+builder.Services.AddScoped<IClosedPnLService, ClosedPnLService>();
 builder.Services.AddScoped<IPositionService, PositionService>();
 builder.Services.AddDbContext<InvestmentsDbContext>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 builder.Services.AddCors(options =>

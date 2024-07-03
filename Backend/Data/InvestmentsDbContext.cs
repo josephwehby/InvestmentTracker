@@ -5,7 +5,10 @@ using System.Runtime.CompilerServices;
 namespace Backend.Data;
 
 public class InvestmentsDbContext : DbContext {
+  
   public DbSet<Trade> trades { get; set; }
+  public DbSet<ClosedPnL> closed_pnl { get; set; }
+
   public InvestmentsDbContext(DbContextOptions<InvestmentsDbContext> options) : base(options) {}
 
   protected override void OnModelCreating(ModelBuilder modelBuilder) {
@@ -31,5 +34,9 @@ public class InvestmentsDbContext : DbContext {
     trade.shares = new_share_count;
     await SaveChangesAsync();
     return true;
+  }
+
+  public async Task<ClosedPnL> ClosedPnL() {
+    return await closed_pnl.SingleOrDefaultAsync();
   }
 }

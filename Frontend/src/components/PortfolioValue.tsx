@@ -19,9 +19,11 @@ function PortfolioValue() {
     return "green";
   }
 
-  function getClosedPnL() {
-    setClosed(100);
+  async function getClosedPnL() {
+    const respone = await fetch("https://localhost:7274/investments/closed");
+    console.log(respone);
   }
+
 
   useEffect(() => {
     getClosedPnL();

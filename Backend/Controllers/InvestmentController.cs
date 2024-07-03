@@ -5,6 +5,7 @@ using Backend.Services.Positions;
 using Backend.Services.Trades;
 using Microsoft.AspNetCore.Cors;
 using Newtonsoft.Json;
+using Backend.Services.ClosedPnLs;
 
 namespace Backend.Controllers;
 
@@ -14,10 +15,12 @@ public class InvestmentController : ControllerBase {
 
   private readonly ITradeService _tradeService;
   private readonly IPositionService _positionService;
+  private readonly IClosedPnLService _closedpnlservice;
 
-  public InvestmentController(ITradeService tradeService, IPositionService positionService) {
+  public InvestmentController(ITradeService tradeService, IPositionService positionService, IClosedPnLService closedService) {
     _tradeService = tradeService;
     _positionService = positionService;
+    _closedpnlservice = closedService;
   }
   
   [HttpPost("add")]
@@ -33,7 +36,7 @@ public class InvestmentController : ControllerBase {
 
   [HttpGet("positions")]
   public ActionResult getAllPositions() {
-    Console.WriteLine("[!] GET request");
+    Console.WriteLine("[!] GET all positions request");
     var positions = _positionService.getAllPositions();
     if (!positions.Any()) {
       return NoContent();
@@ -41,5 +44,12 @@ public class InvestmentController : ControllerBase {
     var temp = positions.ToList();
     var json = JsonConvert.SerializeObject(temp);
     return Ok(json);
+  }
+
+  [HttpGet("closed")]
+  public async Task<ActionResult> getClosedPnL() {
+    Console.WriteLine("[!] GET closed pnl request");
+    var closed = await _closedpnlservice.getClosedPnL();
+    return Ok(closed);
   }
 }
