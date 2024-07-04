@@ -15,5 +15,4 @@
 ### To Do
 - get stock price api
 - add mutual tls authentication 
-- create table to store historic pnl of portfolio
 - create cron job which will run at end of each day to calculate portfolio pnl which will be displayed in graph
