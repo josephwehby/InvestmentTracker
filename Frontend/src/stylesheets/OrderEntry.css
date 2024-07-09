@@ -1,9 +1,10 @@
 .order-entry form {
   display: flex;
+  font-weight: bold;
   flex-direction: column;
   gap: 10px;
   max-width: 275px;
-  height: 220px;
+  height: 230px;
   background-color: #2a3338; 
   padding: 20px;
   border-radius: 5px;
