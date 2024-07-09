@@ -1,5 +1,5 @@
 import Home from "./pages/Home.tsx";
-import ReactDOM from "react-dom/client";
+import Portfolio from "./pages/Portfolio.tsx"
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 function App() {
@@ -10,7 +10,8 @@ function App() {
         <div id="Pages">
           <BrowserRouter>
             <Routes>
-              <Route path="/portfolio" element={<Home />} />
+              <Route path="/portfolio" element={<Portfolio />} />
+              <Route path="/" element={<Home />} />
             </Routes>
           </BrowserRouter>
         </div>
