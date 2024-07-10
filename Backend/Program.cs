@@ -21,6 +21,7 @@ builder.Services.AddCors(options =>
       });
 });
 
+
 var app = builder.Build();
 app.UseHttpsRedirection();
 app.UseCors("AllowReact");
