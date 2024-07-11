@@ -3,8 +3,12 @@ using Backend.Services.Positions;
 using Backend.Data;
 using Microsoft.EntityFrameworkCore;
 using Backend.Services.ClosedPnLs;
+using Microsoft.AspNetCore.Server.Kestrel.Https;
+using System.Security.Cryptography.X509Certificates;
+using System.Net.Security;
 
 var builder = WebApplication.CreateBuilder(args);
+
 
 builder.Services.AddControllers();
 builder.Services.AddScoped<ITradeService, TradeService>();
@@ -25,6 +29,7 @@ builder.Services.AddCors(options =>
 var app = builder.Build();
 app.UseHttpsRedirection();
 app.UseCors("AllowReact");
+app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
 app.Run();

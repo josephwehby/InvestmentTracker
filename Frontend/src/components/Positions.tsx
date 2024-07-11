@@ -28,7 +28,9 @@ function Positions() {
   }
 
   async function getPositions() {
-    const response = await fetch("https://localhost:7274/investments/positions");
+    const response = await fetch("https://localhost:7274/investments/positions", {
+      method: 'GET'
+    });
     if (!response.ok) {
       throw new Error("Problem fetching api");
     }

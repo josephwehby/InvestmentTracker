@@ -14,5 +14,5 @@
 
 ### To Do
 - get stock price api
-- add mutual tls authentication 
+- ~~add mutual tls authentication~~ this sucks to implement will now be doing JWT Authentication 
 - create cron job which will run at end of each day to calculate portfolio pnl which will be displayed in graph
