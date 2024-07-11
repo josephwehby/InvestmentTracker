@@ -6,9 +6,11 @@ using Backend.Services.Trades;
 using Microsoft.AspNetCore.Cors;
 using Newtonsoft.Json;
 using Backend.Services.ClosedPnLs;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Backend.Controllers;
 
+[Authorize]
 [ApiController]
 [Route("investments")]
 public class InvestmentController : ControllerBase {

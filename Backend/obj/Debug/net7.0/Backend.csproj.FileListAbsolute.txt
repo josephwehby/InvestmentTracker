@@ -66,3 +66,10 @@ C:\Users\josep\Documents\Programming\Csharp\InvestmentTracker\Backend\bin\Debug\
 C:\Users\josep\Documents\Programming\Csharp\InvestmentTracker\Backend\bin\Debug\net7.0\Microsoft.EntityFrameworkCore.Relational.dll
 C:\Users\josep\Documents\Programming\Csharp\InvestmentTracker\Backend\bin\Debug\net7.0\Npgsql.dll
 C:\Users\josep\Documents\Programming\Csharp\InvestmentTracker\Backend\bin\Debug\net7.0\Npgsql.EntityFrameworkCore.PostgreSQL.dll
+C:\Users\josep\Documents\Programming\Csharp\InvestmentTracker\Backend\bin\Debug\net7.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Users\josep\Documents\Programming\Csharp\InvestmentTracker\Backend\bin\Debug\net7.0\Microsoft.IdentityModel.JsonWebTokens.dll
+C:\Users\josep\Documents\Programming\Csharp\InvestmentTracker\Backend\bin\Debug\net7.0\Microsoft.IdentityModel.Logging.dll
+C:\Users\josep\Documents\Programming\Csharp\InvestmentTracker\Backend\bin\Debug\net7.0\Microsoft.IdentityModel.Protocols.dll
+C:\Users\josep\Documents\Programming\Csharp\InvestmentTracker\Backend\bin\Debug\net7.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+C:\Users\josep\Documents\Programming\Csharp\InvestmentTracker\Backend\bin\Debug\net7.0\Microsoft.IdentityModel.Tokens.dll
+C:\Users\josep\Documents\Programming\Csharp\InvestmentTracker\Backend\bin\Debug\net7.0\System.IdentityModel.Tokens.Jwt.dll
