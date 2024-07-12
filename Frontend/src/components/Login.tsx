@@ -1,4 +1,5 @@
 import {ChangeEvent, useState} from "react";
+import "../stylesheets/Login.css";
 
 function Login() {
   const [username, setUsername] = useState<string>("");
@@ -43,13 +44,13 @@ function Login() {
     <div className="login">
       <form onSubmit={handleSubmit}>
         <div className="login-group">
-          <input type="text" placeholder="Username" value={username} onChange={handleUsername} required />
+          <input id="username" type="text" placeholder="Username" value={username} onChange={handleUsername} required />
         </div>
         <div className="login-group">
-          <input type="password" placeholder="Password" value={password} onChange={handlePassword} required />
+          <input id="password" type="password" placeholder="Password" value={password} onChange={handlePassword} required />
         </div>
         <div className="login-group">
-          <input id="login-button" type="submit" value="Login" />
+          <input id="login-btn" type="submit" value="Login" />
         </div>
       </form>
       <div className="error">

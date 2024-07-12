@@ -43,7 +43,7 @@ span {
 
 #shares, #price, #fees {
   border: none;
-  background-color: rgb(61,68,73);
+    background-color: rgb(61,68,73);
   color: white;
   font-size: 14px;
   border-radius: 5px;
