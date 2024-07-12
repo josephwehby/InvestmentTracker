@@ -21,7 +21,7 @@ public class AuthService : IAuthService {
     // convert password to bytes
     byte[] password_bytes = Encoding.ASCII.GetBytes(user.password);
     byte[] correct_bytes = Encoding.ASCII.GetBytes(Environment.GetEnvironmentVariable("INVESTMENT_TRACKER_KEY"));
-
+    
     // hash with sha512 and compare
     byte[] password_hash;
     byte[] correct_hash;
@@ -30,7 +30,7 @@ public class AuthService : IAuthService {
 
     using (SHA512 sha512 = SHA512.Create()) { correct_hash = sha512.ComputeHash(correct_bytes); }
 
-    if (correct_hash.SequenceEqual(password_hash)) {
+    if (correct_hash.SequenceEqual(password_hash) && user.username == Environment.GetEnvironmentVariable("INVESTMENT_TRACKER_NAME")) {
       return GenerateToken(user);
     }
 
