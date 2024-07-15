@@ -28,7 +28,12 @@ function PortfolioValue() {
 
   async function getClosedPnL() {
     try {
-      const respone = await fetch("https://localhost:7274/investments/closed");
+      const token = localStorage.getItem("accessToken");
+      const respone = await fetch("https://localhost:7274/investments/closed", {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
       if (!respone.ok) {
         throw new Error("[!] Failed to fetch closesd pnl");
       }

@@ -1,10 +1,12 @@
 import {ChangeEvent, useState} from "react";
+import { useNavigate } from 'react-router-dom';
 import "../stylesheets/Login.css";
 
 function Login() {
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [error, setError] = useState<string>("");
+  const navigate = useNavigate();
 
   async function submitCreds() {
     try {
@@ -25,8 +27,11 @@ function Login() {
        return;
       }
       setError("");
-      const token = await response.json();
-      console.log(token);
+      const data = await response.json();
+      console.log(data);
+      console.log(data.jwt);
+      localStorage.setItem("accessToken", data.jwt);
+      navigate("/portfolio");
     } catch (error) {
       console.error("[!] Error logging in: " + error);
     }

@@ -22,9 +22,7 @@ public class LoginController : ControllerBase {
     if (token == "") {
       return Unauthorized();
     } 
-    var jsonobject = new JObject();
-    jsonobject.Add("token", token);
-    var json = JsonConvert.SerializeObject(jsonobject);
-    return Ok(json);
+    var response = new Token { jwt = token };
+    return Ok(response);
   }
 }

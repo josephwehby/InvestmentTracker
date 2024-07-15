@@ -36,11 +36,13 @@ function OrderEntry() {
 
   async function addTrade() {
     try{
+      const token = localStorage.getItem("accessToken");
       const response = await fetch("https://localhost:7274/investments/add", {
         method: 'POST',
         headers: {
           'Accept':'application/json',
           'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}` 
         },
         body: JSON.stringify({
           'ticker': ticker,

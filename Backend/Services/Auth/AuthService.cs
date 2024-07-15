@@ -44,7 +44,7 @@ public class AuthService : IAuthService {
       issuer: _config["JWT:Issuer"],
       audience: _config["JWT:Audience"],
       claims: new List<Claim>(),
-      expires: DateTime.Now.AddMinutes(5),
+      expires: DateTime.Now.AddMinutes(15),
       signingCredentials: signinCredentials
     );
 

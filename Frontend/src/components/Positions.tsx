@@ -28,8 +28,12 @@ function Positions() {
   }
 
   async function getPositions() {
+    const token = localStorage.getItem("accessToken");
     const response = await fetch("https://localhost:7274/investments/positions", {
-      method: 'GET'
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
     });
     if (!response.ok) {
       throw new Error("Problem fetching api");
