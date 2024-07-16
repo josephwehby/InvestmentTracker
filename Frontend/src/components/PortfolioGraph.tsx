@@ -26,18 +26,26 @@ function customeToolTip({active, payload, label} : TooltipProps<ValueType, NameT
   if (active && payload && payload.length) {
     return (
       <div className='tooltip'>
-        <h4>Date: {label}</h4>
-        <h4>PnL: ${`${payload?.[0].value}`}</h4>
+        <h5>Date: {label}</h5>
+        <h5>PnL: ${`${payload?.[0].value}`}</h5>
       </div>
       );
     }
 }
 
+function customXAxis({ x, y, payload}: any) {
+  return (
+    <g transform={`translate(${x},${y})`}>
+      <text x={0} y={0} dy={16} textAnchor='end' fill="#666" transform='rotate(-35)'>{payload.value}</text>
+    </g>
+  );
+}
+
 function PortfolioGraph() {
 
   return (
-    <ResponsiveContainer width="70%" height={400}>
-      <AreaChart data={data}>
+    <ResponsiveContainer width="70%" height={420}>
+      <AreaChart data={data} margin={{ top: 20, right: 30, left: 20, bottom: 30}}>
       <defs>
         <linearGradient id="color" x1="0" y1="0" x2="0" y2="1">
          <stop offset="0%" stopColor="#2451B7" stopOpacity={0.4}></stop> 
@@ -45,7 +53,7 @@ function PortfolioGraph() {
         </linearGradient>
       </defs>
         <Area dataKey="pnl" fill="url(#color)" />
-        <XAxis dataKey="day" />
+        <XAxis dataKey="day" padding={{ left: 20 , right: 20 }} tick={customXAxis}/>
         <YAxis dataKey="pnl" axisLine={false} tickLine={false} tickFormatter={ (n:number) => `$${n.toFixed(2)}`}/>
         <Tooltip content={customeToolTip}/>
         <CartesianGrid opacity={0.1} vertical={false} />
