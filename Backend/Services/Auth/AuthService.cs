@@ -6,6 +6,7 @@ using System.Security.Cryptography;
 using System.Security.Claims;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Backend.Services.Auth;
 
@@ -17,7 +18,7 @@ public class AuthService : IAuthService {
     _config = config;
   }
 
-  public string Authenticate(User user) {
+  public (string, string) Authenticate(User user) {
     // convert password to bytes
     byte[] password_bytes = Encoding.ASCII.GetBytes(user.password);
     byte[] correct_bytes = Encoding.ASCII.GetBytes(Environment.GetEnvironmentVariable("INVESTMENT_TRACKER_KEY"));
@@ -31,10 +32,12 @@ public class AuthService : IAuthService {
     using (SHA512 sha512 = SHA512.Create()) { correct_hash = sha512.ComputeHash(correct_bytes); }
 
     if (correct_hash.SequenceEqual(password_hash) && user.username == Environment.GetEnvironmentVariable("INVESTMENT_TRACKER_NAME")) {
-      return GenerateToken(user);
+      string access_token = GenerateToken(user);
+      string refresh = GenerateRefreshToken();
+      return (access_token, refresh);
     }
 
-    return "";
+    return ("", "");
   }
 
   private string GenerateToken(User user) {
@@ -50,6 +53,16 @@ public class AuthService : IAuthService {
 
     var token = new JwtSecurityTokenHandler().WriteToken(token_options);
     return token;
+  }
+
+  private string GenerateRefreshToken() {
+    var rng = RandomNumberGenerator.Create();
+    
+    byte[] bytes = new byte[32];
+    rng.GetBytes(bytes);
+
+    string refresh_token = Convert.ToBase64String(bytes);
+    return refresh_token;
   }
 
 }

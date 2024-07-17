@@ -18,11 +18,13 @@ public class LoginController : ControllerBase {
   [HttpPost]
   public IActionResult Login([FromBody] User user) {
     Console.WriteLine("[!] Login attempt from " + HttpContext.Connection.RemoteIpAddress?.ToString());
-    var token = _authService.Authenticate(user);
-    if (token == "") {
+    var tokens = _authService.Authenticate(user);
+    if (tokens.Item1 == "") {
       return Unauthorized();
     } 
-    var response = new Token { jwt = token };
-    return Ok(response);
+    
+    // convert refresh token to cookie
+
+    return Ok(tokens.Item1);
   }
 }

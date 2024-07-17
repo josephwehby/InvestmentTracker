@@ -18,6 +18,13 @@ const raw_data: DataPoint[] = [
   { day: "5/8/2024", pnl: 18 },
   { day: "5/9/2024", pnl: 10 },
   { day: "5/10/2024", pnl: 7 },
+  { day: "5/11/2024", pnl: 30 },
+  { day: "5/12/2024", pnl: 28 },
+  { day: "5/13/2024", pnl: 20 },
+  { day: "5/14/2024", pnl: 29 },
+  { day: "5/15/2024", pnl: 23 },
+  { day: "5/16/2024", pnl: 16 },
+  { day: "5/17/2024", pnl: 21 },
 ];
 
 const data = raw_data.filter((_, index) => index % 2 === 0);
@@ -44,8 +51,8 @@ function customXAxis({ x, y, payload}: any) {
 function PortfolioGraph() {
 
   return (
-    <ResponsiveContainer width="70%" height={420}>
-      <AreaChart data={data} margin={{ top: 20, right: 30, left: 20, bottom: 30}}>
+    <ResponsiveContainer width="70%" height={440} max-wdith="80%">
+      <AreaChart data={data} margin={{ top: 20, right: 5, left: 20, bottom: 30}}>
       <defs>
         <linearGradient id="color" x1="0" y1="0" x2="0" y2="1">
          <stop offset="0%" stopColor="#2451B7" stopOpacity={0.4}></stop> 
