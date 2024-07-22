@@ -58,7 +58,7 @@ public class AuthService : IAuthService {
   private string GenerateRefreshToken() {
     var rng = RandomNumberGenerator.Create();
     
-    byte[] bytes = new byte[32];
+    byte[] bytes = new byte[64];
     rng.GetBytes(bytes);
 
     string refresh_token = Convert.ToBase64String(bytes);
