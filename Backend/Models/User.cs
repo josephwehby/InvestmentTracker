@@ -5,7 +5,7 @@ public class User {
   public string username { get; set; }
   public string password_hash { get; set; }
   public string salt { get; set; }
-  public string refresh_token { get; set; }
-  public DateTime token_created { get; set; }
-  public DateTime token_expires { get; set; }
+  public string? refresh_token { get; set; }
+  public DateTime? token_created { get; set; }
+  public DateTime? token_expires { get; set; }
 }

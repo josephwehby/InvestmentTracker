@@ -10,7 +10,7 @@ function Login() {
 
   async function submitCreds() {
     try {
-      const response = await fetch("https://localhost:7274/login", {
+      const response = await fetch("https://localhost:7274/auth/login", {
         method: "POST",
         headers: { 
           "Accept":"application/json",
