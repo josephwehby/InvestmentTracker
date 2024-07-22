@@ -18,7 +18,7 @@ public class AuthService : IAuthService {
     _config = config;
   }
 
-  public (string, string) Authenticate(User user) {
+  public (string, string) Authenticate(LoginUser user) {
     // convert password to bytes
     byte[] password_bytes = Encoding.ASCII.GetBytes(user.password);
     byte[] correct_bytes = Encoding.ASCII.GetBytes(Environment.GetEnvironmentVariable("INVESTMENT_TRACKER_KEY"));
@@ -40,7 +40,7 @@ public class AuthService : IAuthService {
     return ("", "");
   }
 
-  private string GenerateToken(User user) {
+  private string GenerateToken(LoginUser user) {
     var key = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(_config["JWT:Key"]));
     var signinCredentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
     var token_options = new JwtSecurityToken(

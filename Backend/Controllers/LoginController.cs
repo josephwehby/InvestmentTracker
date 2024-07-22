@@ -16,7 +16,7 @@ public class LoginController : ControllerBase {
   }
 
   [HttpPost]
-  public IActionResult Login([FromBody] User user) {
+  public IActionResult Login([FromBody] LoginUser user) {
     Console.WriteLine("[!] Login attempt from " + HttpContext.Connection.RemoteIpAddress?.ToString());
     var tokens = _authService.Authenticate(user);
     if (tokens.Item1 == "") {
