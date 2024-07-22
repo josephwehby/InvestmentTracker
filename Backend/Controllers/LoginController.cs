@@ -31,6 +31,11 @@ public class LoginController : ControllerBase {
   [HttpPost("register")]
   public async Task<IActionResult> Register([FromBody] LoginUser user) {
     bool register = await _authService.Register(user);
-    return Unauthorized();
+    
+    if(!register) {
+      return BadRequest("Registration failed");
+    }
+
+    return Ok("user created");
   }
 }
