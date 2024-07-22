@@ -13,3 +13,4 @@
 
 # Trades
 - create method in db context for adding trade
+- update trades to include username or some random uid
