@@ -80,7 +80,7 @@ public async Task<bool> Register(LoginUser user) {
       issuer: _config["JWT:Issuer"],
       audience: _config["JWT:Audience"],
       claims: new List<Claim>{
-        new Claim(JwtRegisteredClaimNames.Sub, id.ToString())
+        new Claim("userid", id.ToString())
       },
       expires: DateTime.Now.AddMinutes(15),
       signingCredentials: signinCredentials

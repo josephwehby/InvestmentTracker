@@ -1,9 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Backend.Models;
-using Backend.Services;
 using Backend.Services.Positions;
 using Backend.Services.Trades;
-using Microsoft.AspNetCore.Cors;
 using Newtonsoft.Json;
 using Backend.Services.ClosedPnLs;
 using Microsoft.AspNetCore.Authorization;
@@ -39,6 +37,7 @@ public class InvestmentController : ControllerBase {
   [HttpGet("positions")]
   public ActionResult getAllPositions() {
     Console.WriteLine("[!] GET all positions request");
+    
     var positions = _positionService.getAllPositions();
     if (!positions.Any()) {
       return NoContent();
