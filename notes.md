@@ -2,7 +2,7 @@
 - create register page 
 - create access and refresh token on register
 - create and store refresh tokens
--  
+- ~~add guid to claims filed in jwt~~  
 
 # Authentication 
 - hash passwords with SHA 256

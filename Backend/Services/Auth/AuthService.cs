@@ -20,7 +20,6 @@ public class AuthService : IAuthService {
   }
 
   public async Task<(string, string)> Authenticate(LoginUser user) {
-    // convert password to bytes
     var current_user = await _context.getUser(user.username);
     
     if (current_user == null) {
@@ -34,7 +33,7 @@ public class AuthService : IAuthService {
     byte[] current_password = Convert.FromBase64String(current_user.password_hash);
 
     if (current_password.SequenceEqual(password_hash)) {
-      string access_token = GenerateToken(user);
+      string access_token = GenerateToken(user, current_user.id);
       string refresh = GenerateRefreshToken();
       return (access_token, refresh);
     }
@@ -70,13 +69,19 @@ public async Task<bool> Register(LoginUser user) {
   return true;
 }
 
-  private string GenerateToken(LoginUser user) {
+  private string GenerateToken(LoginUser user, Guid? id) {
+    if (!id.HasValue) {
+      Console.WriteLine("[!] Guid cannot be null");
+      return "";
+    }
     var key = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(_config["JWT:Key"]));
     var signinCredentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
     var token_options = new JwtSecurityToken(
       issuer: _config["JWT:Issuer"],
       audience: _config["JWT:Audience"],
-      claims: new List<Claim>(),
+      claims: new List<Claim>{
+        new Claim(JwtRegisteredClaimNames.Sub, id.ToString())
+      },
       expires: DateTime.Now.AddMinutes(15),
       signingCredentials: signinCredentials
     );
