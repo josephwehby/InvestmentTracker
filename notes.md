@@ -10,7 +10,7 @@
 - [ ] add user id column in each of the tables 
 - [ ] change code to query by userid and whatever data the user is updating or needs
   - something like `SELECT * FROM table WHERE userid = 12345`
-- [ ] create method in db context for adding trade
+- [x] create method in db context for adding trade
 - [ ] update code to pass userid to necessary services so it can query on that value
 ## Deployment
 - [ ] deploy to raspberry pi or cheap hosting provider
