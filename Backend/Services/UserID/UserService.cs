@@ -11,7 +11,11 @@ public class UserService : IUserService {
     _httpContextAccessor = httpContextAccessor;
   }
 
-  public string getUserID() {
-    return _httpContextAccessor.HttpContext.User.Claims.FirstOrDefault(c => c.Type == "userid")?.Value;
+  public Guid getUserID() {
+    var guid = _httpContextAccessor.HttpContext.User.Claims.FirstOrDefault(c => c.Type == "userid")?.Value;
+    if (Guid.TryParse(guid, out var userId)) {
+      return userId;
+    }
+    throw new Exception("Invalid or missing user id.");
   }
 }

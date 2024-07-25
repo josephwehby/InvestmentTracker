@@ -35,10 +35,10 @@ public class InvestmentController : ControllerBase {
   }
 
   [HttpGet("positions")]
-  public ActionResult getAllPositions() {
+  public async Task<ActionResult> getAllPositions() {
     Console.WriteLine("[!] GET all positions request");
     
-    var positions = _positionService.getAllPositions();
+    var positions = await _positionService.getAllPositions();
     if (!positions.Any()) {
       return NoContent();
     }

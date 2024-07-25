@@ -3,5 +3,5 @@ using Backend.Models;
 
 namespace Backend.Services.Positions;
 public interface IPositionService {
-  public IEnumerable<Position> getAllPositions();
+  public Task<IEnumerable<Position>> getAllPositions();
 }

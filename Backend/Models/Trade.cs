@@ -2,6 +2,7 @@ namespace Backend.Models;
 
 public class Trade {
   public int id { get; set; }
+  public Guid userid { get; set; }
   public string trade_type { get; set; }
   public string ticker { get; set; }
   public decimal shares { get; set; }

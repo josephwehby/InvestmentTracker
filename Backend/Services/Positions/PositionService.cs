@@ -1,22 +1,18 @@
 using Backend.Models;
 using Backend.Services.Trades;
-using Backend.Services.UserID;
 
 namespace Backend.Services.Positions;
 
 public class PositionService : IPositionService {
   private readonly ITradeService _tradeService;
-  private readonly IUserService _userservice;
 
-  public PositionService(ITradeService tradeService, IUserService userService) {
+  public PositionService(ITradeService tradeService) {
     _tradeService = tradeService;
-    _userservice = userService;
   }
 
-  public IEnumerable<Position> getAllPositions() {
-    var trades = _tradeService.getAllTrades();
-    Console.WriteLine(_userservice.getUserID());
-    if (!trades.Any()) return Enumerable.Empty<Position>();
+  public async Task<IEnumerable<Position>> getAllPositions() {
+    var trades = await _tradeService.getAllTrades();
+    if (trades.Count() == 0) return Enumerable.Empty<Position>();
 
     var grouped_trades = trades.GroupBy(t => t.ticker);
     var positions = new List<Position>();
@@ -37,7 +33,7 @@ public class PositionService : IPositionService {
     decimal market_value = 0;
     decimal fees = 0;
     
-    // api for this but harcoding for now
+    // api for this but hardcoding for now
     decimal current_shareprice = 100;
 
     foreach (var trade in trades) {

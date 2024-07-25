@@ -1,5 +1,6 @@
 CREATE TABLE trades (
 	id SERIAL PRIMARY KEY, 
+  userid UUID NOT NULL,
 	trade_type VARCHAR(10) NOT NULL,
 	ticker VARCHAR(20) NOT NULL,
 	shares NUMERIC(15,5) NOT NULL,
