@@ -20,6 +20,7 @@ public class InvestmentsDbContext : DbContext {
     return await trades.Where(t => t.ticker == ticker && t.userid == userid).OrderBy(t => t.purchase_day).ToListAsync(); 
   }
 
+  // userid is added prior to invoking this method
   public async Task addTrade(Trade trade) {
     trades.Add(trade);
     await SaveChangesAsync();
@@ -45,10 +46,12 @@ public class InvestmentsDbContext : DbContext {
     return true;
   }
 
+  // needs userid here
   public async Task<ClosedPnL> ClosedPnL(Guid userid) {
     return await closed_pnl.SingleOrDefaultAsync(u => u.userid == userid);
   }
 
+  // needs userid here
   public async Task<bool> updateClosedPnL(decimal new_pnl, Guid userid) {
     var closed = await closed_pnl.SingleOrDefaultAsync(p => p.userid == userid);
     
@@ -59,6 +62,7 @@ public class InvestmentsDbContext : DbContext {
     return true;
   }
 
+  // need userid as each trade is unique to a user
   public async Task<List<Trade>> getTrades(Guid userid) {
     return await trades.Where(t => t.userid == userid).ToListAsync();
   }

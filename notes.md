@@ -4,14 +4,16 @@
 - [ ] store jwt
 ## Backend
 - [ ] create access and refresh token on login or when refresh token is provided
-- [ ]create and store refresh tokens
+- [ ] create and store refresh tokens
   - the field exists in the database just have to store it on creation
 - [x] add guid to claims filed in jwt  
-- [ ] add user id column in each of the tables 
-- [ ] change code to query by userid and whatever data the user is updating or needs
+- [x] add user id column in each of the tables 
+- [x] change code to query by userid and whatever data the user is updating or needs
   - something like `SELECT * FROM table WHERE userid = 12345`
 - [x] create method in db context for adding trade
-- [ ] update code to pass userid to necessary services so it can query on that value
+- [x] update code to pass userid to necessary services so it can query on that value
+## Cron Job
+- [ ] update cron job to account for the new userid field
 ## Deployment
 - [ ] deploy to raspberry pi or cheap hosting provider
 - [ ] deploy app using Docker
