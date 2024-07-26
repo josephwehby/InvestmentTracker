@@ -3,8 +3,8 @@
 - [ ] create register page
 - [ ] store jwt
 ## Backend
-- [ ] create access and refresh token on login or when refresh token is provided
-- [ ] create and store refresh tokens
+- [ ] create access and refresh token when either access token is expired and refresh is not
+- [x] create and store refresh tokens on login
   - the field exists in the database just have to store it on creation
 - [x] add guid to claims filed in jwt  
 - [x] add user id column in each of the tables 
