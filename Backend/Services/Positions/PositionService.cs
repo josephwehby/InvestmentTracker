@@ -25,34 +25,32 @@ public class PositionService : IPositionService {
   }
 
   private Position createPosition(List<Trade> trades) {
-    Position position = new Position();
-    decimal quantity = 0;
-    decimal unrealized_pnl = 0;      
-    decimal avg_price = 0;
-    decimal cost_basis = 0;
-    decimal market_value = 0;
-    decimal fees = 0;
-    
+    Position position = new Position {
+      ticker = trades[0].ticker,
+      current_price = 0,
+      avg_cost = 0,
+      quantity = 0,
+      cost_basis = 0,
+      market_value = 0,
+      fees = 0,
+      pnl = 0,
+      percent_gain = 0
+    };
+
     // api for this but hardcoding for now
     decimal current_shareprice = 100;
 
     foreach (var trade in trades) {
-      quantity += trade.shares;
-      unrealized_pnl += (trade.shares*current_shareprice) - (trade.shares*trade.price);
-      cost_basis += trade.shares*trade.price;
-      market_value += trade.shares * current_shareprice;
-      avg_price += trade.price;
-      fees += trade.fees;
+      position.quantity += trade.shares;
+      position.pnl += (trade.shares*current_shareprice) - (trade.shares*trade.price);
+      position.cost_basis += trade.shares*trade.price;
+      position.market_value += trade.shares * current_shareprice;
+      position.avg_cost += trade.price;
+      position.fees += trade.fees;
     }
     
-    position.ticker = trades[0].ticker;
     position.current_price = current_shareprice;
-    position.avg_cost = avg_price / trades.Count;
-    position.quantity = quantity;
-    position.cost_basis = cost_basis;
-    position.market_value = market_value;
-    position.fees = fees;
-    position.pnl = unrealized_pnl;
+    position.avg_cost = position.avg_cost / trades.Count;
 
     return position;
   }
