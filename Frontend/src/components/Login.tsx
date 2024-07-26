@@ -29,8 +29,7 @@ function Login() {
       setError("");
       const data = await response.json();
       console.log(data);
-      console.log(data.jwt);
-      localStorage.setItem("accessToken", data.jwt);
+      localStorage.setItem("accessToken", data);
       navigate("/portfolio");
     } catch (error) {
       console.error("[!] Error logging in: " + error);

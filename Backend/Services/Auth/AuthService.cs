@@ -12,10 +12,12 @@ namespace Backend.Services.Auth;
 public class AuthService : IAuthService {
 
   private readonly IConfiguration _config;
+  private readonly IHttpContextAccessor _httpContextAccessor;
   private readonly UserDbContext _context;
 
-  public AuthService(IConfiguration config, UserDbContext context) {
+  public AuthService(IConfiguration config, IHttpContextAccessor httpContextAccessor, UserDbContext context) {
     _config = config;
+    _httpContextAccessor = httpContextAccessor;
     _context = context;
   }
 
@@ -35,39 +37,60 @@ public class AuthService : IAuthService {
     if (current_password.SequenceEqual(password_hash)) {
       string access_token = GenerateToken(user, current_user.id);
       string refresh = GenerateRefreshToken();
+      if (current_user.id.HasValue) {
+        await setRefreshTokenCookie(refresh, current_user.id.Value);
+      } else {
+        Console.WriteLine("[!] Userid is not set");
+        return ("", "");
+      }
       return (access_token, refresh);
     }
 
     return ("", "");
   }
+  
+  public async Task setRefreshTokenCookie(string refresh_token, Guid userid) {
+    var created = DateTime.UtcNow;
+    var expires = DateTime.UtcNow.AddDays(7);
 
+    var cookieOptions = new CookieOptions {
+      HttpOnly = true,
+      Secure = true,
+      SameSite = SameSiteMode.Lax,
+      Expires = expires
+    };
 
-public async Task<bool> Register(LoginUser user) {
-  // check if user exists
-  var exists = await _context.getUser(user.username);
-  if (exists != null) {
-    return false;
+    await _context.setRefreshToken(userid, refresh_token, created, expires);
+    _httpContextAccessor.HttpContext.Response.Cookies.Append("refreshToken", refresh_token, cookieOptions);
   }
 
-  // create salt
-  var rng = RandomNumberGenerator.Create();
-  byte[] salt = new byte[16];
-  rng.GetBytes(salt);
 
-  byte[] hash = generateHash(salt, user.password);
-  Console.WriteLine("Salt: " + Convert.ToBase64String(salt));
-  Console.WriteLine("Password: " + Convert.ToBase64String(hash));
+  public async Task<bool> Register(LoginUser user) {
+    // check if user exists
+    var exists = await _context.getUser(user.username);
+    if (exists != null) {
+      return false;
+    }
 
-  var new_user = new User {
-    username = user.username,
-    password_hash = Convert.ToBase64String(hash),
-    salt = Convert.ToBase64String(salt),
-  };
+    // create salt
+    var rng = RandomNumberGenerator.Create();
+    byte[] salt = new byte[16];
+    rng.GetBytes(salt);
 
-  await _context.addUser(new_user);
+    byte[] hash = generateHash(salt, user.password);
+    Console.WriteLine("Salt: " + Convert.ToBase64String(salt));
+    Console.WriteLine("Password: " + Convert.ToBase64String(hash));
 
-  return true;
-}
+    var new_user = new User {
+      username = user.username,
+      password_hash = Convert.ToBase64String(hash),
+      salt = Convert.ToBase64String(salt),
+    };
+
+    await _context.addUser(new_user);
+
+    return true;
+  }
 
   private string GenerateToken(LoginUser user, Guid? id) {
     if (!id.HasValue) {
@@ -82,7 +105,7 @@ public async Task<bool> Register(LoginUser user) {
       claims: new List<Claim>{
         new Claim("userid", id.ToString())
       },
-      expires: DateTime.Now.AddMinutes(15),
+      expires: DateTime.UtcNow.AddMinutes(15),
       signingCredentials: signinCredentials
     );
 
@@ -114,5 +137,6 @@ public async Task<bool> Register(LoginUser user) {
 
     return password_hash;
   }
+
 
 }

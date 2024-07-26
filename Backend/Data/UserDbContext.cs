@@ -21,4 +21,16 @@ public class UserDbContext : DbContext {
     await SaveChangesAsync();
   }  
 
+  public async Task setRefreshToken(Guid userid, string refresh, DateTime created, DateTime expires) {
+    var user = await users.FindAsync(userid);
+    if (user == null) {
+      return;
+    }
+
+    user.refresh_token = refresh;
+    user.token_created = created;
+    user.token_expires = expires;
+
+    await SaveChangesAsync();
+  }
 }

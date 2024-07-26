@@ -15,12 +15,15 @@ public class PositionService : IPositionService {
     if (trades.Count() == 0) return Enumerable.Empty<Position>();
 
     var grouped_trades = trades.GroupBy(t => t.ticker);
-    var positions = new List<Position>();
+    var task_positions = new List<Task<Position>>();
      
     foreach (var group in grouped_trades) {
-      positions.Add(createPosition(group.ToList()));
+      var trade_task = group.ToList();
+      var task = Task.Run(() => createPosition(trade_task));
+      task_positions.Add(task);
     }
 
+    var positions = await Task.WhenAll(task_positions);
     return positions;
   }
 
@@ -41,6 +44,7 @@ public class PositionService : IPositionService {
     decimal current_shareprice = 100;
 
     foreach (var trade in trades) {
+      Console.WriteLine(trade.shares + " " + trade.price);
       position.quantity += trade.shares;
       position.pnl += (trade.shares*current_shareprice) - (trade.shares*trade.price);
       position.cost_basis += trade.shares*trade.price;
