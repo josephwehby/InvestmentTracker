@@ -6,8 +6,6 @@ using Backend.Services.Positions;
 using Backend.Data;
 using Microsoft.EntityFrameworkCore;
 using Backend.Services.ClosedPnLs;
-using Microsoft.AspNetCore.Server.Kestrel.Https;
-using System.Security.Cryptography.X509Certificates;
 using System.Net.Security;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
