@@ -13,7 +13,7 @@
 - [x] create method in db context for adding trade
 - [x] update code to pass userid to necessary services so it can query on that value
 ## Cron Job
-- [ ] update cron job to account for the new userid field
+- [x] update cron job to account for the new userid field
 ## Deployment
 - [ ] deploy to raspberry pi or cheap hosting provider
 - [ ] deploy app using Docker
@@ -28,3 +28,6 @@
 - when client needs a new token we will check their refresh token against the one in the database
   - if the refresh token is expired then they need to login again
   - if not then issue new jwt and refresh token for the user
+
+# Database Notes
+- to truncate the table and set the auto id back to 1 user `TRUNCATE TABLE your_table_name RESTART IDENTITY;`

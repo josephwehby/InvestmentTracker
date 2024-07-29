@@ -14,8 +14,17 @@ def connect():
         print("[!] Unable to connect to database")
         return None
 
-def get_trades(cursor):
-    cursor.execute("SELECT * FROM trades;")
+def getUsers(cursor):
+    cursor.execute("SELECT * FROM users;")
+    users = cursor.fetchall()
+    users = [list(u) for u in users]
+    userids = []
+    for user in users:
+        userids.append(user[0])
+    return userids    
+
+def get_trades(cursor, id):
+    cursor.execute("SELECT * FROM trades WHERE userid = %s;", (id,))
     trades = cursor.fetchall()
     return trades
 
@@ -29,26 +38,25 @@ def calculate_pnl(trades):
         if ticker not in group:
             group[ticker] = []
         group[ticker].append(sub)
-    print(group)
 
     total_pnl = 0
     for ticker, positions in group.items():
         ticker_pnl = 0
         ticker_current_price = 100
         for p in positions:
-            shares = p[3]
-            price = p[4]
+            shares = p[4]
+            price = p[5]
             pnl = (ticker_current_price - price) * shares
             ticker_pnl += pnl
         total_pnl += ticker_pnl 
     
     return pnl
 
-def updateDatabase(cursor, pnl):
-    cursor.execute("INSERT INTO historic_pnl (pnl) VALUES (%s)", (pnl,))
+def updateDatabase(cursor, pnl, id):
+    cursor.execute("INSERT INTO historic_pnl (userid, pnl) VALUES (%s, %s)", (id, pnl,))
 
 def main():
-    print("[!] Calculating ending day pnl of all stock positions...")
+    print("[!] Calculating ending day pnl of all users' stock positions...")
 
     conn = connect()
     
@@ -56,9 +64,13 @@ def main():
         return None
     
     cursor = conn.cursor()
-    trades = get_trades(cursor)
-    pnl = calculate_pnl(trades)
-    updateDatabase(cursor, pnl)
+    userids = getUsers(cursor)
+    
+    for id in userids:
+        trades = get_trades(cursor, id)
+        pnl = calculate_pnl(trades)
+        updateDatabase(cursor, pnl, id)
+        print("ID: " + id + " | pnl has been added to historic pnl")
     conn.commit()
     conn.close()
 

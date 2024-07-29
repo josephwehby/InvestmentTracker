@@ -23,7 +23,7 @@ function Login() {
       });
 
       if (!response.ok) {
-       setError("Invalid login credentials."); 
+       setError("Invalid login credentials!"); 
        return;
       }
       setError("");
