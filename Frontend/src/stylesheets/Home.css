@@ -1,14 +1,27 @@
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
 
-.home-screen {
-  padding-top: 20px;
-  color: white;
-  font-family: "Open Sans";
+.home-page {
+  margin-top: 100px;
   display: flex;
-  flex-direction: column;
-  gap: 7px;
+  flex-direction: row;
+  gap: 30px;
+  justify-content: center;
   align-items: center;
 }
 
+.link-group {
+  padding: 10px 20px;
+  font-size: 20px;
+  font-family: "Open Sans";
+  color: white;
+  border: none;
+  background-color: rgb(61,68,73);
+  border-radius: 10px;
+  text-decoration: none;
+  cursor: pointer;
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+}
 
-
+.link-group:hover {
+  background-color: rgba(61,68,73, .7);
+}

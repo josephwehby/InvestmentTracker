@@ -1,4 +1,5 @@
 import { ChangeEvent, useState } from "react";
+import "../stylesheets/Register.css";
 
 function Register() {
   const [username, setUsername] = useState("");
@@ -6,7 +7,7 @@ function Register() {
   const [check, setCheck] = useState("");
   
   async function registerCreds() {
-
+    // make fetch api call to add new user
   }
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>){
@@ -20,15 +21,15 @@ function Register() {
   
   return (
     <div className="register">
-      <form onSubmit={handleSubmit}>
+      <form id="register-form" onSubmit={handleSubmit}>
         <div className="register-group">
-          <input id="username" type="text" onChange={handleUsername} value={username} required />
+          <input id="username" type="text" onChange={handleUsername} value={username} placeholder="Username" required />
         </div>
         <div className="register-group">
-          <input id="password" type="text" onChange={handlePassword} value={password} required />
+          <input id="password" type="password" onChange={handlePassword} value={password} placeholder="Password" required />
         </div>
         <div className="register-group">
-          <input id="check" type="text" onChange={handleCheck} value={check} required />
+          <input id="check" type="password" onChange={handleCheck} value={check} placeholder="Password" required />
         </div>
         <div className="register-group">
           <input id="register-btn" type="submit" value="Register" />
