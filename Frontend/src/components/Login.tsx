@@ -32,7 +32,7 @@ function Login() {
       localStorage.setItem("accessToken", data);
       navigate("/portfolio");
     } catch (error) {
-      console.error("[!] Error logging in: " + error);
+      setError("A network error has occured.");
     }
   }
 
@@ -58,7 +58,7 @@ function Login() {
         </div>
       </form>
       <div className="error">
-        { error && <div className="error-msg">{error}</div> }
+        { error && <div className="error-msg" style={{color: 'red'}}>{error}</div> }
       </div>
     </div>
   );

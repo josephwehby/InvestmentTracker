@@ -5,6 +5,9 @@ function Home() {
   return(
     
     <div className="home-page">
+      <div className="message">
+        <h1>Welcome</h1>
+      </div>
       <div className="login-link">
         <Link to="/login" className="link-group">Login</Link>
       </div>
