@@ -90,7 +90,7 @@ public class AuthService : IAuthService {
     byte[] provided_token = Convert.FromBase64String(refresh_token);
     var current_time = DateTime.UtcNow;
 
-    if (stored_token.SequenceEqual(provided_token) && current_time < user.token_expires) {
+    if (current_time < user.token_expires) {
       string jwt = GenerateToken(user.id.Value, user.username);      
       string new_refresh_token = GenerateRefreshToken();
       await setRefreshTokenCookie(new_refresh_token, user.id.Value);
