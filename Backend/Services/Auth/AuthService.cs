@@ -24,11 +24,11 @@ public class AuthService : IAuthService {
     _userservice = userservice;
   }
 
-  public async Task<(string, string)> Authenticate(LoginUser user) {
+  public async Task<string> Authenticate(LoginUser user) {
     var current_user = await _context.getUser(user.username);
     
     if (current_user == null) {
-      return ("", "");
+      return "";
     }
     
     // combine salt and password
@@ -38,36 +38,20 @@ public class AuthService : IAuthService {
     byte[] current_password = Convert.FromBase64String(current_user.password_hash);
 
     if (current_password.SequenceEqual(password_hash)) {
-      string access_token = GenerateToken(user, current_user.id, current_user.username);
+      string access_token = GenerateToken(current_user.id, current_user.username);
       string refresh = GenerateRefreshToken();
       if (current_user.id.HasValue) {
         await setRefreshTokenCookie(refresh, current_user.id.Value);
       } else {
         Console.WriteLine("[!] Userid is not set");
-        return ("", "");
+        return "";
       }
-      return (access_token, refresh);
+      return access_token;
     }
 
-    return ("", "");
+    return "";
   }
   
-  public async Task setRefreshTokenCookie(string refresh_token, Guid userid) {
-    var created = DateTime.UtcNow;
-    var expires = DateTime.UtcNow.AddDays(7);
-
-    var cookieOptions = new CookieOptions {
-      HttpOnly = true,
-      Secure = true,
-      SameSite = SameSiteMode.Lax,
-      Expires = expires
-    };
-
-    await _context.setRefreshToken(userid, refresh_token, created, expires);
-    _httpContextAccessor.HttpContext.Response.Cookies.Append("refreshToken", refresh_token, cookieOptions);
-  }
-
-
   public async Task<bool> Register(LoginUser user) {
     // check if user exists
     var exists = await _context.getUser(user.username);
@@ -95,16 +79,53 @@ public class AuthService : IAuthService {
     return true;
   }
 
-  public async Task<(string, string)> Refresh(string refresh_token) {
-    if (refresh_token == null) return ("", "");
-    var userid = _userservice.getUserID();
+  public async Task<string> Refresh(string refresh_token) {
+    if (refresh_token == null) return "";
+    
+    var userid = Guid.Empty;
+    
+    try {
+      userid = _userservice.getUserID();
+    } catch (Exception e) {
+      Console.WriteLine(e);
+      return "";
+    }
+
     var user = await _context.getUserFromID(userid);
     
+    if (user == null) return "";
+    
     // compare tokens and check expiration
-    return("", "");
+    byte[] stored_token = Convert.FromBase64String(user.refresh_token);
+    byte[] provided_token = Convert.FromBase64String(refresh_token);
+    var current_time = DateTime.UtcNow;
+
+    if (stored_token.SequenceEqual(provided_token) && current_time < user.token_expires) {
+      string jwt = GenerateToken(userid, user.username);      
+      string new_refresh_token = GenerateRefreshToken();
+      await setRefreshTokenCookie(new_refresh_token, userid);
+      return jwt;      
+    } 
+
+    return "";
+  }
+  
+  private async Task setRefreshTokenCookie(string refresh_token, Guid userid) {
+    var created = DateTime.UtcNow;
+    var expires = DateTime.UtcNow.AddDays(7);
+
+    var cookieOptions = new CookieOptions {
+      HttpOnly = true,
+      Secure = true,
+      SameSite = SameSiteMode.Lax,
+      Expires = expires
+    };
+
+    await _context.setRefreshToken(userid, refresh_token, created, expires);
+    _httpContextAccessor.HttpContext.Response.Cookies.Append("refreshToken", refresh_token, cookieOptions);
   }
 
-  private string GenerateToken(LoginUser user, Guid? id, string username) {
+  private string GenerateToken(Guid? id, string username) {
     if (!id.HasValue) {
       Console.WriteLine("[!] Guid cannot be null");
       return "";
@@ -118,7 +139,7 @@ public class AuthService : IAuthService {
         new Claim("userid", id.ToString()),
         new Claim(JwtRegisteredClaimNames.Sub, username)
       },
-      expires: DateTime.UtcNow.AddMinutes(15),
+      expires: DateTime.UtcNow.AddMinutes(1),
       signingCredentials: signinCredentials
     );
 

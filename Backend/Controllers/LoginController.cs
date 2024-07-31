@@ -16,7 +16,7 @@ public class LoginController : ControllerBase {
   [HttpPost("login")]
   public async Task<IActionResult> Login([FromBody] LoginUser user) {
         
-    var (jwt, refresh) = await _authService.Authenticate(user);
+    var jwt = await _authService.Authenticate(user);
     if (jwt == "") {
       Console.WriteLine("[!] Failed login attempt from " + HttpContext.Connection.RemoteIpAddress?.ToString());
       return Unauthorized();
@@ -38,9 +38,12 @@ public class LoginController : ControllerBase {
     return Ok("user created");
   }
 
-  [HttpPost("refresh")]
-  public IActionResult Refresh() {
-    _authService.Refresh(HttpContext.Request.Cookies["refreshToken"]);   
-    return Ok();
+  [HttpGet("refresh")]
+  public async Task<IActionResult> Refresh() {
+    var jwt = await _authService.Refresh(HttpContext.Request.Cookies["refreshToken"]);   
+    if (jwt == "") {
+      return Unauthorized();
+    }
+    return Ok(jwt);
   }
 }

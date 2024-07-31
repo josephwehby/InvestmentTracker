@@ -12,6 +12,7 @@
   - something like `SELECT * FROM table WHERE userid = 12345`
 - [x] create method in db context for adding trade
 - [x] update code to pass userid to necessary services so it can query on that value
+- [ ] add logging 
 ## Cron Job
 - [x] update cron job to account for the new userid field
 ## Deployment
