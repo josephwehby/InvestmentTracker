@@ -52,7 +52,7 @@ function PortfolioGraph() {
 
   return (
     <ResponsiveContainer width="70%" height={440} max-wdith="80%">
-      <AreaChart data={data} margin={{ top: 20, right: 5, left: 20, bottom: 30}}>
+      <AreaChart data={data} margin={{ top: 20, right: 5, left: 20, bottom: 60}}>
       <defs>
         <linearGradient id="color" x1="0" y1="0" x2="0" y2="1">
          <stop offset="0%" stopColor="#2451B7" stopOpacity={0.4}></stop> 

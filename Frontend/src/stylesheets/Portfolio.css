@@ -12,6 +12,12 @@ body {
   font-family: "Open Sans";
 }
 
+.zero-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
 .first-row {
   display: flex;
   flex-direction: row;

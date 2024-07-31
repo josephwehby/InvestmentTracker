@@ -1,0 +1,18 @@
+.username-display {
+  font-size: 17px;
+  font-weight: bold;
+  color: white;
+  background-color: #2a3338; 
+  width: 300px;
+  height: 40px;
+  display: grid;
+  border-radius: 5px;
+  padding-top: 12px;
+  padding-bottom: 12px;
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+}
+
+.username-display p {
+  margin: 4px;
+  padding-left: 20px;
+}

@@ -2,6 +2,7 @@ import OrderEntry from "../components/OrderEntry";
 import PortfolioGraph from "../components/PortfolioGraph";
 import PortfolioValue from "../components/PortfolioValue";
 import Positions from "../components/Positions";
+import Username  from "../components/Username";
 import { ReloadContextProvider } from "../contexts/ReloadContext";
 import { UnrealizedGainsProvider } from "../contexts/UnrealizedGainsContext";
 import "../stylesheets/Portfolio.css";
@@ -12,7 +13,10 @@ function Portfolio() {
       <div className="main">
         <UnrealizedGainsProvider>
           <ReloadContextProvider>
-            <PortfolioValue />
+            <div className="zero-row">
+              <PortfolioValue />
+              <Username />
+            </div>
             <div className="first-row">
               <PortfolioGraph />
               <OrderEntry />
