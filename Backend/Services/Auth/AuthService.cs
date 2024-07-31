@@ -6,6 +6,7 @@ using System.Security.Claims;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+using Backend.Services.UserID;
 
 namespace Backend.Services.Auth;
 
@@ -14,11 +15,13 @@ public class AuthService : IAuthService {
   private readonly IConfiguration _config;
   private readonly IHttpContextAccessor _httpContextAccessor;
   private readonly UserDbContext _context;
+  private readonly IUserService _userservice;
 
-  public AuthService(IConfiguration config, IHttpContextAccessor httpContextAccessor, UserDbContext context) {
+  public AuthService(IConfiguration config, IHttpContextAccessor httpContextAccessor, UserDbContext context, IUserService userservice) {
     _config = config;
     _httpContextAccessor = httpContextAccessor;
     _context = context;
+    _userservice = userservice;
   }
 
   public async Task<(string, string)> Authenticate(LoginUser user) {
@@ -90,6 +93,15 @@ public class AuthService : IAuthService {
     await _context.addUser(new_user);
 
     return true;
+  }
+
+  public async Task<(string, string)> Refresh(string refresh_token) {
+    if (refresh_token == null) return ("", "");
+    var userid = _userservice.getUserID();
+    var user = await _context.getUserFromID(userid);
+    
+    // compare tokens and check expiration
+    return("", "");
   }
 
   private string GenerateToken(LoginUser user, Guid? id, string username) {

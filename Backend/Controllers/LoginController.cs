@@ -37,4 +37,10 @@ public class LoginController : ControllerBase {
 
     return Ok("user created");
   }
+
+  [HttpPost("refresh")]
+  public IActionResult Refresh() {
+    _authService.Refresh(HttpContext.Request.Cookies["refreshToken"]);   
+    return Ok();
+  }
 }

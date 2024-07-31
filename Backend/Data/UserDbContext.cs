@@ -19,7 +19,12 @@ public class UserDbContext : DbContext {
   public async Task addUser(User user) {
     users.Add(user);
     await SaveChangesAsync();
-  }  
+  } 
+
+  public async Task<User> getUserFromID(Guid userid) {
+    var user = await users.FindAsync(userid);
+    return user;
+  } 
 
   public async Task setRefreshToken(Guid userid, string refresh, DateTime created, DateTime expires) {
     var user = await users.FindAsync(userid);
