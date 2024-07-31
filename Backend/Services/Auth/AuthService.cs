@@ -35,7 +35,7 @@ public class AuthService : IAuthService {
     byte[] current_password = Convert.FromBase64String(current_user.password_hash);
 
     if (current_password.SequenceEqual(password_hash)) {
-      string access_token = GenerateToken(user, current_user.id);
+      string access_token = GenerateToken(user, current_user.id, current_user.username);
       string refresh = GenerateRefreshToken();
       if (current_user.id.HasValue) {
         await setRefreshTokenCookie(refresh, current_user.id.Value);
@@ -92,7 +92,7 @@ public class AuthService : IAuthService {
     return true;
   }
 
-  private string GenerateToken(LoginUser user, Guid? id) {
+  private string GenerateToken(LoginUser user, Guid? id, string username) {
     if (!id.HasValue) {
       Console.WriteLine("[!] Guid cannot be null");
       return "";
@@ -103,7 +103,8 @@ public class AuthService : IAuthService {
       issuer: _config["JWT:Issuer"],
       audience: _config["JWT:Audience"],
       claims: new List<Claim>{
-        new Claim("userid", id.ToString())
+        new Claim("userid", id.ToString()),
+        new Claim(JwtRegisteredClaimNames.Sub, username)
       },
       expires: DateTime.UtcNow.AddMinutes(15),
       signingCredentials: signinCredentials

@@ -1,5 +1,6 @@
 import {ChangeEvent, useState} from "react";
 import { useNavigate } from 'react-router-dom';
+import { jwtDecode, JwtPayload } from "jwt-decode";
 import "../stylesheets/Login.css";
 
 function Login() {
@@ -28,8 +29,10 @@ function Login() {
       }
       setError("");
       const data = await response.json();
-      console.log(data);
       localStorage.setItem("accessToken", data);
+      const decode = jwtDecode<JwtPayload>(data);
+      const name = decode.sub || "Default";
+      sessionStorage.setItem("username", name);
       navigate("/portfolio");
     } catch (error) {
       setError("A network error has occured.");
