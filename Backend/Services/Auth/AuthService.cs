@@ -82,28 +82,18 @@ public class AuthService : IAuthService {
   public async Task<string> Refresh(string refresh_token) {
     if (refresh_token == null) return "";
     
-    var userid = Guid.Empty;
-    
-    try {
-      userid = _userservice.getUserID();
-    } catch (Exception e) {
-      Console.WriteLine(e);
-      return "";
-    }
-
-    var user = await _context.getUserFromID(userid);
-    
+    var user = await _context.getUserFromRefreshToken(refresh_token);    
     if (user == null) return "";
-    
+
     // compare tokens and check expiration
     byte[] stored_token = Convert.FromBase64String(user.refresh_token);
     byte[] provided_token = Convert.FromBase64String(refresh_token);
     var current_time = DateTime.UtcNow;
 
     if (stored_token.SequenceEqual(provided_token) && current_time < user.token_expires) {
-      string jwt = GenerateToken(userid, user.username);      
+      string jwt = GenerateToken(user.id.Value, user.username);      
       string new_refresh_token = GenerateRefreshToken();
-      await setRefreshTokenCookie(new_refresh_token, userid);
+      await setRefreshTokenCookie(new_refresh_token, user.id.Value);
       return jwt;      
     } 
 
@@ -126,10 +116,6 @@ public class AuthService : IAuthService {
   }
 
   private string GenerateToken(Guid? id, string username) {
-    if (!id.HasValue) {
-      Console.WriteLine("[!] Guid cannot be null");
-      return "";
-    }
     var key = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(_config["JWT:Key"]));
     var signinCredentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
     var token_options = new JwtSecurityToken(

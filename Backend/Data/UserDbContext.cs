@@ -12,6 +12,10 @@ public class UserDbContext : DbContext {
     base.OnModelCreating(modelBuilder);
   }
 
+  public async Task<User> getUserFromRefreshToken(string token) {
+    return await users.FirstOrDefaultAsync(u => u.refresh_token == token);
+  }
+
   public async Task<User> getUser(string username) {
     return await users.FirstOrDefaultAsync(u => u.username == username);
   }
