@@ -1,26 +1,22 @@
 import { useEffect, useState, useContext } from "react";
 import { InvestmentPosition } from "../abstractions/InvestmentPosition";
-import ReloadContext from "../contexts/ReloadContext";
 import UnrealizedGainsContext from "../contexts/UnrealizedGainsContext";
 import "../stylesheets/Positions.css";
 import { useAuthContext } from "../contexts/AuthContext";
+import { useReloadContext } from "../contexts/ReloadContext";
 
 function Positions() {
   const [positions, setPositions] = useState<InvestmentPosition[]>([]);
   const context = useContext(UnrealizedGainsContext);
-  const r_context = useContext(ReloadContext);
+  const { reload } = useReloadContext();
   const { jwt } = useAuthContext(); 
   
   if (!context) {
     throw new Error("need unrealized gains provider");
   }
 
-  if (!r_context) {
-    throw new Error("need reload context provider");
-  }
   
   const { setUnrealizedGains } = context;
-  const { reload } = r_context;
 
   function getColor(value: number) {
     if (value > 0) {

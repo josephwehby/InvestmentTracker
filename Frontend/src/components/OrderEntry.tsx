@@ -1,5 +1,5 @@
 import { useAuthContext } from "../contexts/AuthContext";
-import ReloadContext from "../contexts/ReloadContext";
+import { useReloadContext } from "../contexts/ReloadContext";
 import "../stylesheets/OrderEntry.css";
 import { useState, ChangeEvent, useContext } from "react";
 
@@ -9,15 +9,9 @@ function OrderEntry() {
   const [price, setPrice] = useState<number>(0);
   const [ordertype, setOrdertype] = useState<string>("buy");
   const [fees, setFees] = useState<number>(0);
-  const context = useContext(ReloadContext);
+  const { reload, setReload } = useReloadContext();
   const { jwt } = useAuthContext();
   
-  if (!context) {
-    throw new Error("need reload context provider");
-  }
-  
-  const { reload, setReload } = context;
-
   function checkNumericalInput(e: ChangeEvent<HTMLInputElement>) {
     const { id, value } = e.target;    
     const clean_num = parseFloat(value);

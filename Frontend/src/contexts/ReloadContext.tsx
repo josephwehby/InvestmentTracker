@@ -1,4 +1,4 @@
-import { useState, createContext, ReactNode } from "react";
+import { useState, createContext, ReactNode, useContext } from "react";
 
 interface ReloadContextProps {
   reload: boolean;
@@ -19,6 +19,15 @@ export function ReloadContextProvider ({children} : ReloadContextProviderProps) 
       {children}
     </ReloadContext.Provider>
   );
+}
+
+
+export function useReloadContext() {
+  const reload = useContext(ReloadContext);
+  if (reload == undefined) {
+    throw new Error("useAuthContext must be used with a AuthContext");
+  }
+  return reload;
 }
 
 export default ReloadContext;
