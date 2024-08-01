@@ -3,11 +3,13 @@ import { InvestmentPosition } from "../abstractions/InvestmentPosition";
 import ReloadContext from "../contexts/ReloadContext";
 import UnrealizedGainsContext from "../contexts/UnrealizedGainsContext";
 import "../stylesheets/Positions.css";
+import { useAuthContext } from "../contexts/AuthContext";
 
 function Positions() {
   const [positions, setPositions] = useState<InvestmentPosition[]>([]);
   const context = useContext(UnrealizedGainsContext);
   const r_context = useContext(ReloadContext);
+  const { jwt } = useAuthContext(); 
   
   if (!context) {
     throw new Error("need unrealized gains provider");
@@ -28,11 +30,10 @@ function Positions() {
   }
 
   async function getPositions() {
-    const token = localStorage.getItem("accessToken");
     const response = await fetch("https://localhost:7274/investments/positions", {
       method: 'GET',
       headers: {
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${jwt}`,
       },
     });
     if (!response.ok) {

@@ -1,3 +1,4 @@
+import { useAuthContext } from "../contexts/AuthContext";
 import ReloadContext from "../contexts/ReloadContext";
 import "../stylesheets/OrderEntry.css";
 import { useState, ChangeEvent, useContext } from "react";
@@ -9,6 +10,7 @@ function OrderEntry() {
   const [ordertype, setOrdertype] = useState<string>("buy");
   const [fees, setFees] = useState<number>(0);
   const context = useContext(ReloadContext);
+  const { jwt } = useAuthContext();
   
   if (!context) {
     throw new Error("need reload context provider");
@@ -36,13 +38,12 @@ function OrderEntry() {
 
   async function addTrade() {
     try{
-      const token = localStorage.getItem("accessToken");
       const response = await fetch("https://localhost:7274/investments/add", {
         method: 'POST',
         headers: {
           'Accept':'application/json',
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}` 
+          'Authorization': `Bearer ${jwt}` 
         },
         body: JSON.stringify({
           'ticker': ticker,

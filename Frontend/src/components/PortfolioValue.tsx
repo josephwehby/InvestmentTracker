@@ -2,11 +2,13 @@ import "../stylesheets/PortfolioValue.css";
 import UnrealizedGainsContext from "../contexts/UnrealizedGainsContext";
 import ReloadContext from "../contexts/ReloadContext";
 import { useState, useContext, useEffect } from "react";
+import { useAuthContext } from "../contexts/AuthContext";
 
 function PortfolioValue() {
   const [closed, setClosed] = useState(0);
   const context = useContext(UnrealizedGainsContext);
   const reload_context = useContext(ReloadContext);
+  const { jwt } = useAuthContext();
 
   if (!context) {
     throw new Error("need unrealized gains provider");
@@ -28,10 +30,9 @@ function PortfolioValue() {
 
   async function getClosedPnL() {
     try {
-      const token = localStorage.getItem("accessToken");
       const respone = await fetch("https://localhost:7274/investments/closed", {
         headers: {
-          'Authorization': `Bearer ${token}`
+          'Authorization': `Bearer ${jwt}`
         }
       });
       if (!respone.ok) {

@@ -86,8 +86,6 @@ public class AuthService : IAuthService {
     if (user == null) return "";
 
     // compare tokens and check expiration
-    byte[] stored_token = Convert.FromBase64String(user.refresh_token);
-    byte[] provided_token = Convert.FromBase64String(refresh_token);
     var current_time = DateTime.UtcNow;
 
     if (current_time < user.token_expires) {
@@ -125,7 +123,7 @@ public class AuthService : IAuthService {
         new Claim("userid", id.ToString()),
         new Claim(JwtRegisteredClaimNames.Sub, username)
       },
-      expires: DateTime.UtcNow.AddMinutes(1),
+      expires: DateTime.UtcNow.AddMinutes(30),
       signingCredentials: signinCredentials
     );
 
