@@ -19,7 +19,7 @@ public class TradeService : ITradeService {
     
     try {
       userid = _userService.getUserID();
-    } catch (Exception e) {
+    } catch (Exception) {
       return false;
     }
     
@@ -35,7 +35,7 @@ public class TradeService : ITradeService {
     decimal sell = trade.price;    
     decimal total_shares = 0;
     var trades = await _context.getTradesByTicker(trade.ticker, userid);
-
+    Console.WriteLine("Trades: " + trades.Count);
     // get total shares available
     foreach (var t in trades)  total_shares += t.shares;        
     
@@ -59,8 +59,9 @@ public class TradeService : ITradeService {
       }
     }
     
+    Console.WriteLine("closed pnl: " + profit);
     await _context.updateClosedPnL(profit, userid);
-
+    
     foreach (var trade_to_delete in to_delete) await _context.deleteTrade(trade_to_delete);
     
     return true;
@@ -73,7 +74,7 @@ public class TradeService : ITradeService {
     Guid userid = Guid.Empty;
     try {
       userid = _userService.getUserID();
-    } catch (Exception e) {
+    } catch (Exception) {
       return new List<Trade>();
     }
     return await _context.getTrades(userid);

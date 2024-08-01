@@ -52,14 +52,21 @@ public class InvestmentsDbContext : DbContext {
   }
 
   // needs userid here
-  public async Task<bool> updateClosedPnL(decimal new_pnl, Guid userid) {
-    var closed = await closed_pnl.SingleOrDefaultAsync(p => p.userid == userid);
+  public async Task updateClosedPnL(decimal new_pnl, Guid user_id) {
+    var closed = await closed_pnl.SingleOrDefaultAsync(p => p.userid == user_id);
+
+    // create new closed pnl for user
+    if (closed == null) {
+      ClosedPnL new_closed = new ClosedPnL {
+        userid = user_id,
+        pnl = new_pnl
+      };
+      closed_pnl.Add(new_closed);
+    } else {
+      closed.pnl += new_pnl;
+    }
     
-    if (closed == null) return false;
-    
-    closed.pnl += new_pnl;
     await SaveChangesAsync();
-    return true;
   }
 
   // need userid as each trade is unique to a user

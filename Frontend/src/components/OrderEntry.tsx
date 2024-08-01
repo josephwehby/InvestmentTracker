@@ -1,7 +1,7 @@
 import { useAuthContext } from "../contexts/AuthContext";
 import { useReloadContext } from "../contexts/ReloadContext";
 import "../stylesheets/OrderEntry.css";
-import { useState, ChangeEvent, useContext } from "react";
+import { useState, ChangeEvent } from "react";
 
 function OrderEntry() {
   const [ticker, setTicker] = useState<string>("");
