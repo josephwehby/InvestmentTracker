@@ -40,7 +40,14 @@ public class LoginController : ControllerBase {
 
   [HttpGet("refresh")]
   public async Task<IActionResult> Refresh() {
-    var jwt = await _authService.Refresh(HttpContext.Request.Cookies["refreshToken"]);   
+    var refresh_token = HttpContext.Request.Cookies["refreshToken"];
+    
+    if (refresh_token == null) {
+      return Unauthorized();
+    }
+
+    var jwt = await _authService.Refresh(refresh_token);   
+    
     if (jwt == "") {
       return Unauthorized();
     }

@@ -1,9 +1,10 @@
 # To Do
 ## Frontend
-- [ ] create register page
-- [ ] store jwt
+- [x] create register page
+- [x] store jwt
+- [ ] frontend needs to poll backend to check if jwt is expired
 ## Backend
-- [ ] create access and refresh token when either access token is expired and refresh is not
+- [x] create access and refresh token when either access token is expired and refresh is not
 - [x] create and store refresh tokens on login
   - the field exists in the database just have to store it on creation
 - [x] add guid to claims filed in jwt  
@@ -31,4 +32,4 @@
   - if not then issue new jwt and refresh token for the user
 
 # Database Notes
-- to truncate the table and set the auto id back to 1 user `TRUNCATE TABLE your_table_name RESTART IDENTITY;`
+- to truncate the table and set the auto id back to 1 run `TRUNCATE TABLE your_table_name RESTART IDENTITY;`
