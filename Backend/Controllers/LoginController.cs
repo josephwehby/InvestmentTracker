@@ -58,7 +58,6 @@ public class LoginController : ControllerBase {
       return Unauthorized();
     }
 
-    _logger.LogInformation("New jwt and refresh token created");
     return Ok(jwt);
   }
 }
