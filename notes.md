@@ -14,6 +14,12 @@
 - [x] create method in db context for adding trade
 - [x] update code to pass userid to necessary services so it can query on that value
 - [ ] add logging 
+  - [x] controllers
+  - [x] auth service
+  - [ ] position service
+  - [ ] trade service
+  - [ ] userid service
+  - [ ] db contexts
 ## Cron Job
 - [x] update cron job to account for the new userid field
 ## Deployment
