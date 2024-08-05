@@ -20,6 +20,8 @@
   - [ ] trade service
   - [ ] userid service
   - [ ] db contexts
+  - [ ] closed pnls 
+
 ## Cron Job
 - [x] update cron job to account for the new userid field
 ## Deployment
