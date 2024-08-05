@@ -16,28 +16,28 @@ public class InvestmentController : ControllerBase {
   private readonly ITradeService _tradeService;
   private readonly IPositionService _positionService;
   private readonly IClosedPnLService _closedpnlservice;
-
-  public InvestmentController(ITradeService tradeService, IPositionService positionService, IClosedPnLService closedService) {
+  private readonly ILogger _logger;
+  public InvestmentController(ITradeService tradeService, IPositionService positionService, IClosedPnLService closedService, ILogger<InvestmentController> logger) {
     _tradeService = tradeService;
     _positionService = positionService;
     _closedpnlservice = closedService;
+    _logger = logger;
   }
   
   [HttpPost("add")]
   public async Task<ActionResult> addTrade([FromBody] Trade trade) {
-    Console.WriteLine("[!] POST request");
+    _logger.LogInformation("POST request for adding a trade.");
     bool result = await _tradeService.addTrade(trade);
     if (result) {
       return Ok();
     }
-    
+    _logger.LogInformation("Unable to add new trade"); 
     return StatusCode(500, "Error while adding trade");
   }
 
   [HttpGet("positions")]
   public async Task<ActionResult> getAllPositions() {
-    Console.WriteLine("[!] GET all positions request");
-    
+    _logger.LogInformation("GET request for positions.");
     var positions = await _positionService.getAllPositions();
     if (!positions.Any()) {
       return NoContent();
@@ -49,7 +49,7 @@ public class InvestmentController : ControllerBase {
 
   [HttpGet("closed")]
   public async Task<ActionResult> getClosedPnL() {
-    Console.WriteLine("[!] GET closed pnl request");
+    _logger.LogInformation("GET request for closed pnl.");
     var closed = await _closedpnlservice.getClosedPnL();
     return Ok(closed);
   }

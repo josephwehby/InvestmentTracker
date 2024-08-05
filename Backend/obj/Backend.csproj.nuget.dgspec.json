@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\josep\\Documents\\Programming\\Csharp\\InvestmentTracker\\Backend\\Backend.csproj": {}
+    "C:\\Users\\josep\\documents\\programming\\csharp\\InvestmentTracker\\Backend\\Backend.csproj": {}
   },
   "projects": {
-    "C:\\Users\\josep\\Documents\\Programming\\Csharp\\InvestmentTracker\\Backend\\Backend.csproj": {
+    "C:\\Users\\josep\\documents\\programming\\csharp\\InvestmentTracker\\Backend\\Backend.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\josep\\Documents\\Programming\\Csharp\\InvestmentTracker\\Backend\\Backend.csproj",
+        "projectUniqueName": "C:\\Users\\josep\\documents\\programming\\csharp\\InvestmentTracker\\Backend\\Backend.csproj",
         "projectName": "Backend",
-        "projectPath": "C:\\Users\\josep\\Documents\\Programming\\Csharp\\InvestmentTracker\\Backend\\Backend.csproj",
+        "projectPath": "C:\\Users\\josep\\documents\\programming\\csharp\\InvestmentTracker\\Backend\\Backend.csproj",
         "packagesPath": "C:\\Users\\josep\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\josep\\Documents\\Programming\\Csharp\\InvestmentTracker\\Backend\\obj\\",
+        "outputPath": "C:\\Users\\josep\\documents\\programming\\csharp\\InvestmentTracker\\Backend\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\josep\\AppData\\Roaming\\NuGet\\NuGet.Config",

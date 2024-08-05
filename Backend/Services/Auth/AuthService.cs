@@ -16,18 +16,21 @@ public class AuthService : IAuthService {
   private readonly IHttpContextAccessor _httpContextAccessor;
   private readonly UserDbContext _context;
   private readonly IUserService _userservice;
+  private readonly ILogger _logger;
 
-  public AuthService(IConfiguration config, IHttpContextAccessor httpContextAccessor, UserDbContext context, IUserService userservice) {
+  public AuthService(IConfiguration config, IHttpContextAccessor httpContextAccessor, UserDbContext context, IUserService userservice, ILogger<AuthService> logger) {
     _config = config;
     _httpContextAccessor = httpContextAccessor;
     _context = context;
     _userservice = userservice;
+    _logger = logger;
   }
 
   public async Task<string> Authenticate(LoginUser user) {
     var current_user = await _context.getUser(user.username);
     
     if (current_user == null) {
+     _logger.LogInformation("Login attempt failed as {Username} does not exist.", user.username); 
       return "";
     }
     
@@ -43,12 +46,14 @@ public class AuthService : IAuthService {
       if (current_user.id.HasValue) {
         await setRefreshTokenCookie(refresh, current_user.id.Value);
       } else {
-        Console.WriteLine("[!] Userid is not set");
+        _logger.LogInformation("User id for {Username} is not set", user.username);
         return "";
       }
+      _logger.LogInformation("User {Username} has logged in and a new jwt and refresh token have been created.", user.username);
       return access_token;
     }
 
+    _logger.LogInformation("The password provided by {Username} does not match the one stored in the database.", user.username);
     return "";
   }
   
@@ -56,6 +61,7 @@ public class AuthService : IAuthService {
     // check if user exists
     var exists = await _context.getUser(user.username);
     if (exists != null) {
+      _logger.LogInformation("Register attempt failed as {Username} already exists", user.username);
       return false;
     }
 
@@ -75,7 +81,7 @@ public class AuthService : IAuthService {
     };
 
     await _context.addUser(new_user);
-
+    _logger.LogInformation("Created new user {Username}", user.username);
     return true;
   }
 
@@ -83,7 +89,10 @@ public class AuthService : IAuthService {
     if (refresh_token == null) return "";
     
     var user = await _context.getUserFromRefreshToken(refresh_token);    
-    if (user == null) return "";
+    if (user == null) {
+      _logger.LogInformation("There is no user that has that refresh token");
+      return "";
+    }
 
     // compare tokens and check expiration
     var current_time = DateTime.UtcNow;
@@ -92,9 +101,11 @@ public class AuthService : IAuthService {
       string jwt = GenerateToken(user.id.Value, user.username);      
       string new_refresh_token = GenerateRefreshToken();
       await setRefreshTokenCookie(new_refresh_token, user.id.Value);
+      _logger.LogInformation("New jwt and refresh token created for user {Username}", user.username);
       return jwt;      
     } 
-
+    
+    _logger.LogInformation("Refresh token for {Username} is expired.", user.username);
     return "";
   }
   
