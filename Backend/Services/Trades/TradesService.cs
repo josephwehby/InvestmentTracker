@@ -37,7 +37,7 @@ public class TradeService : ITradeService {
     decimal sell = trade.price;    
     decimal total_shares = 0;
     var trades = await _context.getTradesByTicker(trade.ticker, userid);
-    Console.WriteLine("Trades: " + trades.Count);
+    
     // get total shares available
     foreach (var t in trades)  total_shares += t.shares;        
     

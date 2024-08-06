@@ -71,8 +71,6 @@ public class AuthService : IAuthService {
     rng.GetBytes(salt);
 
     byte[] hash = generateHash(salt, user.password);
-    Console.WriteLine("Salt: " + Convert.ToBase64String(salt));
-    Console.WriteLine("Password: " + Convert.ToBase64String(hash));
 
     var new_user = new User {
       username = user.username,

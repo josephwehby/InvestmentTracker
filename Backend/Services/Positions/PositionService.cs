@@ -44,7 +44,6 @@ public class PositionService : IPositionService {
     decimal current_shareprice = 100;
 
     foreach (var trade in trades) {
-      Console.WriteLine(trade.shares + " " + trade.price);
       position.quantity += trade.shares;
       position.pnl += (trade.shares*current_shareprice) - (trade.shares*trade.price);
       position.cost_basis += trade.shares*trade.price;
