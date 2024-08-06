@@ -8,10 +8,12 @@ public class TradeService : ITradeService {
   
   private readonly InvestmentsDbContext _context;
   private readonly IUserService _userService;
+  private readonly ILogger _logger;
 
-  public TradeService(InvestmentsDbContext context, IUserService userService) {
+  public TradeService(InvestmentsDbContext context, IUserService userService, ILogger<TradeService> logger) {
     _context = context;
     _userService = userService;
+    _logger = logger;
   }
 
   public async Task<bool> addTrade(Trade trade) {
@@ -28,7 +30,7 @@ public class TradeService : ITradeService {
         trade.userid = userid;      
         _context.trades.Add(trade);
         await _context.SaveChangesAsync();
-        Console.WriteLine("[!] Added Trade for ticker " + trade.ticker + " at " + trade.price + " for " + trade.shares + " shares");
+        _logger.LogInformation("{Userid}: BUY {Ticker} {Shares} ${Price}", userid, trade.ticker, trade.shares, trade.price);
         return true;
     }
 
@@ -59,8 +61,9 @@ public class TradeService : ITradeService {
       }
     }
     
-    Console.WriteLine("closed pnl: " + profit);
     await _context.updateClosedPnL(profit, userid);
+    _logger.LogInformation("{Userid}: SELL {Ticker} {Shares} ${Price}", userid, trade.ticker, trade.shares, trade.price);
+    _logger.LogInformation("{Userid}: ${Profit}", userid, profit);
     
     foreach (var trade_to_delete in to_delete) await _context.deleteTrade(trade_to_delete);
     
@@ -75,8 +78,10 @@ public class TradeService : ITradeService {
     try {
       userid = _userService.getUserID();
     } catch (Exception) {
+      _logger.LogInformation("No userid provided for get all positions");
       return new List<Trade>();
     }
+    _logger.LogInformation("{Userid}: get all positions request.", userid);
     return await _context.getTrades(userid);
   }
   

@@ -16,11 +16,10 @@
 - [ ] add logging 
   - [x] controllers
   - [x] auth service
-  - [ ] position service
-  - [ ] trade service
-  - [ ] userid service
-  - [ ] db contexts
-  - [ ] closed pnls 
+  - [x] position service
+  - [x] trade service
+  - [x] userid service
+  - [x] closed pnls 
 
 ## Cron Job
 - [x] update cron job to account for the new userid field
