@@ -13,7 +13,7 @@
   - something like `SELECT * FROM table WHERE userid = 12345`
 - [x] create method in db context for adding trade
 - [x] update code to pass userid to necessary services so it can query on that value
-- [ ] add logging 
+- [x] add logging 
   - [x] controllers
   - [x] auth service
   - [x] position service
