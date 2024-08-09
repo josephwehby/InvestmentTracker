@@ -8,33 +8,12 @@ function Login() {
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [error, setError] = useState<string>("");
-  const { setJwt } = useAuthContext();
+  const { login } = useAuthContext();
   const navigate = useNavigate();
 
   async function submitCreds() {
     try {
-      const response = await fetch("https://localhost:7274/auth/login", {
-        method: "POST",
-        headers: { 
-          "Accept":"application/json",
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          "username": username,
-          "password": password
-        })
-      });
-
-      if (!response.ok) {
-       setError("Invalid login credentials!"); 
-       return;
-      }
-      setError("");
-      const data = await response.json();
-      setJwt(data);
-      const decode = jwtDecode<JwtPayload>(data);
-      const name = decode.sub || "Default";
-      localStorage.setItem("username", name);
+      await login(username, password);
       navigate("/portfolio");
     } catch (error) {
       setError("A network error has occured.");
