@@ -4,6 +4,7 @@ import UnrealizedGainsContext from "../contexts/UnrealizedGainsContext";
 import "../stylesheets/Positions.css";
 import { useAuthContext } from "../contexts/AuthContext";
 import { useReloadContext } from "../contexts/ReloadContext";
+import apiClient from "../api/apiClient";
 
 function Positions() {
   const [positions, setPositions] = useState<InvestmentPosition[]>([]);
@@ -26,33 +27,23 @@ function Positions() {
   }
 
   async function getPositions() {
-    const response = await fetch("https://localhost:7274/investments/positions", {
-      method: 'GET',
-      headers: {
-        Authorization: `Bearer ${jwt}`,
-      },
-    });
-    if (!response.ok) {
-      throw new Error("Problem fetching api");
-    }
-    
-    if (response.status === 204) {
-      console.log("No current positions.");
+    try {
+      const response = await apiClient.get("/positions");
+      const data = response.data;
+      setPositions(data);  
+      const totalUnrealizedGains = data.reduce((sum: number, position: InvestmentPosition) => sum + position.pnl, 0);
+      setUnrealizedGains(totalUnrealizedGains);
+      console.log("success");
+    } catch (error) {
       setPositions([]);
-      setUnrealizedGains(0);
-      return;
-    }
-
-    const data = await response.json();
-    setPositions(data);  
-    const totalUnrealizedGains = data.reduce((sum: number, position: InvestmentPosition) => sum + position.pnl, 0);
-    setUnrealizedGains(totalUnrealizedGains);
+      console.log("error");
+    } 
   }  
   
   useEffect(() => {
     const timer = setInterval(() => {
       getPositions();
-    }, 1*60*1000);  
+    }, 30*1000);  
     getPositions();
     return () => clearInterval(timer);
   }, [reload]);

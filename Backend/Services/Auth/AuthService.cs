@@ -109,7 +109,7 @@ public class AuthService : IAuthService {
   
   private async Task setRefreshTokenCookie(string refresh_token, Guid userid) {
     var created = DateTime.UtcNow;
-    var expires = DateTime.UtcNow.AddDays(7);
+    var expires = DateTime.UtcNow.AddSeconds(50);
 
     var cookieOptions = new CookieOptions {
       HttpOnly = true,
@@ -132,7 +132,7 @@ public class AuthService : IAuthService {
         new Claim("userid", id.ToString()),
         new Claim(JwtRegisteredClaimNames.Sub, username)
       },
-      expires: DateTime.UtcNow.AddMinutes(30),
+      expires: DateTime.UtcNow.AddSeconds(15),
       signingCredentials: signinCredentials
     );
 

@@ -26,7 +26,6 @@ public class InvestmentController : ControllerBase {
   
   [HttpPost("add")]
   public async Task<ActionResult> addTrade([FromBody] Trade trade) {
-    return NoContent();
     _logger.LogInformation("POST request for adding a trade.");
     bool result = await _tradeService.addTrade(trade);
     if (result) {
@@ -38,7 +37,6 @@ public class InvestmentController : ControllerBase {
 
   [HttpGet("positions")]
   public async Task<ActionResult> getAllPositions() {
-    return NoContent();
     _logger.LogInformation("GET request for positions.");
     var positions = await _positionService.getAllPositions();
     if (!positions.Any()) {
@@ -51,7 +49,6 @@ public class InvestmentController : ControllerBase {
 
   [HttpGet("closed")]
   public async Task<ActionResult> getClosedPnL() {
-    return Ok(300);
     _logger.LogInformation("GET request for closed pnl.");
     var closed = await _closedpnlservice.getClosedPnL();
     return Ok(closed);

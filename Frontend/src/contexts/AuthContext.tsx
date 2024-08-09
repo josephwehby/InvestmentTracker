@@ -39,8 +39,6 @@ export function AuthProvider({children}: {children: ReactNode}) {
         username,
         password,
       });
-
-
     } catch (error) {
       throw new Error("Username already exists or network error");
     }
