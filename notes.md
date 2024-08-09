@@ -3,7 +3,9 @@
 - [x] create register page
 - [x] store jwt
 - [ ] frontend needs to poll backend to check if jwt is expired
-  - [ ] add interceptors with axios
+  - [ ] add axios create for the non auth components as these need bearer tokens 
+  - [ ] add interceptors with axios for outgoing requests
+  - [ ] add interceptors for incoming requests
   - [x] move login and register to auth context
 - [ ] implement api call for portfolio graph
 ## Backend
