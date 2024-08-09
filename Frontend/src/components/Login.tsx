@@ -1,6 +1,5 @@
 import {ChangeEvent, useState} from "react";
 import { useNavigate } from 'react-router-dom';
-import { jwtDecode, JwtPayload } from "jwt-decode";
 import "../stylesheets/Login.css";
 import { useAuthContext } from "../contexts/AuthContext";
 

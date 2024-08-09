@@ -1,14 +1,22 @@
 import { ChangeEvent, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "../stylesheets/Register.css";
+import { useAuthContext } from "../contexts/AuthContext";
 
 function Register() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [check, setCheck] = useState("");
   const [error, setError] = useState("");
+  const { register } = useAuthContext();
 
   async function registerCreds() {
-    // make fetch api call to add new user
+    try {
+      await register(username, password);
+      navigate("/login");
+    } catch (error) {
+      Console.error(error);
+    }
   }
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>){
