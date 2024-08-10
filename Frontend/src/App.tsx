@@ -1,12 +1,11 @@
+import { useEffect } from "react";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import LoginPage from "./pages/LoginPage.tsx";
 import Portfolio from "./pages/Portfolio.tsx"
 import Registration from "./pages/Register.tsx";
 import Home from "./pages/Home.tsx";
 
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-
 function App() {
-
   return (
     <>
       <div className="App">

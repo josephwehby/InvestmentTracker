@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace Backend.Controllers;
 
-//[Authorize]
+[Authorize]
 [ApiController]
 [Route("investments")]
 public class InvestmentController : ControllerBase {

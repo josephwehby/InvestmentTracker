@@ -12,7 +12,6 @@ interface AuthContextProps {
 export const AuthContext = createContext<AuthContextProps | undefined>(undefined);
 
 export function AuthProvider({children}: {children: ReactNode}) {
-  const [jwt, setJwt] = useState<string>("");
 
   const login = async (username: string, password: string) => {
     try {
@@ -23,7 +22,7 @@ export function AuthProvider({children}: {children: ReactNode}) {
 
       const token = response.data;
       console.log(token);
-      setJwt(token);
+      localStorage.setItem("jwt", token);
       
       const decode = jwtDecode<JwtPayload>(token);
       const name = decode.sub || "Default";
@@ -45,7 +44,7 @@ export function AuthProvider({children}: {children: ReactNode}) {
   };
 
   return (
-    <AuthContext.Provider value={{ jwt, setJwt, login, register }}>
+    <AuthContext.Provider value={{ login, register }}>
       {children}
     </AuthContext.Provider>
   );

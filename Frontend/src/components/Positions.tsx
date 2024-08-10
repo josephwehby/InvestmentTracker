@@ -2,7 +2,6 @@ import { useEffect, useState, useContext } from "react";
 import { InvestmentPosition } from "../abstractions/InvestmentPosition";
 import UnrealizedGainsContext from "../contexts/UnrealizedGainsContext";
 import "../stylesheets/Positions.css";
-import { useAuthContext } from "../contexts/AuthContext";
 import { useReloadContext } from "../contexts/ReloadContext";
 import apiClient from "../api/apiClient";
 
@@ -10,8 +9,7 @@ function Positions() {
   const [positions, setPositions] = useState<InvestmentPosition[]>([]);
   const context = useContext(UnrealizedGainsContext);
   const { reload } = useReloadContext();
-  const { jwt } = useAuthContext(); 
-  
+
   if (!context) {
     throw new Error("need unrealized gains provider");
   }
@@ -30,20 +28,19 @@ function Positions() {
     try {
       const response = await apiClient.get("/positions");
       const data = response.data;
-      setPositions(data);  
+      setPositions(data);
       const totalUnrealizedGains = data.reduce((sum: number, position: InvestmentPosition) => sum + position.pnl, 0);
       setUnrealizedGains(totalUnrealizedGains);
-      console.log("success");
     } catch (error) {
       setPositions([]);
-      console.log("error");
+      console.error("Error: " + error);
     } 
   }  
   
   useEffect(() => {
     const timer = setInterval(() => {
       getPositions();
-    }, 30*1000);  
+    }, 5*60*1000);  
     getPositions();
     return () => clearInterval(timer);
   }, [reload]);
