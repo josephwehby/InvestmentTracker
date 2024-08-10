@@ -1,7 +1,8 @@
-import { useAuthContext } from "../contexts/AuthContext";
 import { useReloadContext } from "../contexts/ReloadContext";
 import "../stylesheets/OrderEntry.css";
 import { useState, ChangeEvent } from "react";
+import apiClient from "../api/apiClient";
+
 
 function OrderEntry() {
   const [ticker, setTicker] = useState<string>("");
@@ -10,7 +11,6 @@ function OrderEntry() {
   const [ordertype, setOrdertype] = useState<string>("buy");
   const [fees, setFees] = useState<number>(0);
   const { reload, setReload } = useReloadContext();
-  const { jwt } = useAuthContext();
   
   function checkNumericalInput(e: ChangeEvent<HTMLInputElement>) {
     const { id, value } = e.target;    
@@ -32,20 +32,12 @@ function OrderEntry() {
 
   async function addTrade() {
     try{
-      const response = await fetch("https://localhost:7274/investments/add", {
-        method: 'POST',
-        headers: {
-          'Accept':'application/json',
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${jwt}` 
-        },
-        body: JSON.stringify({
-          'ticker': ticker,
-          'trade_type': ordertype,
-          'shares': shares,
-          'price': price,
-          'fees': fees,
-        })
+      const response = await apiClient.post("/add",{
+          ticker: ticker,
+          trade_type: ordertype,
+          shares: shares,
+          price: price,
+          fees: fees,
       });
       console.log(response);
       setReload(!reload);

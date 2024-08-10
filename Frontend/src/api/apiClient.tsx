@@ -4,6 +4,9 @@ import { useEffect } from "react";
 const apiClient = axios.create({
   baseURL: "https://localhost:7274/investments",
   withCredentials: true,
+  headers: {
+    "Content-Type": "application/json",
+  }
 });
 
 apiClient.interceptors.request.use(

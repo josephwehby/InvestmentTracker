@@ -29,7 +29,7 @@ public class ClosedPnLService : IClosedPnLService {
       _logger.LogInformation("{userid}: unable to access closed pnl", userid);
       return 0;
     }
-    _logger.LogInformation("{userid}: ${pnl}", userid, closedpnl);
+    _logger.LogInformation("{userid}: ${pnl}", userid, closedpnl.pnl);
     return closedpnl.pnl;
   }
 }

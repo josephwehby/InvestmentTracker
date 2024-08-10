@@ -13,8 +13,7 @@ function Positions() {
   if (!context) {
     throw new Error("need unrealized gains provider");
   }
-
-  
+ 
   const { setUnrealizedGains } = context;
 
   function getColor(value: number) {
