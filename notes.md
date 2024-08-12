@@ -8,7 +8,7 @@
   - [x] add interceptors for incoming requests
   - [x] move login and register to auth context
 - [ ] implement api call for portfolio graph
-- [ ] make portfolio endpoint private until logged in
+- [x] make portfolio endpoint private until logged in
 - [ ] if refresh token is expired then send user back to login screen
 ## Backend
 - [x] create access and refresh token when either access token is expired and refresh is not
