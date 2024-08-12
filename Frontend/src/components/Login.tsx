@@ -15,6 +15,7 @@ function Login() {
       await login(username, password);
       navigate("/portfolio");
     } catch (error) {
+      console.error(error);
       setError("A network error has occured.");
     }
   }

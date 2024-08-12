@@ -1,10 +1,11 @@
 import { createContext, ReactNode, useContext, useState } from "react";
 import authApiClient from "../api/authClient";
 import { jwtDecode, JwtPayload } from "jwt-decode";
+import { setAuthData } from "../utils/authUtils";
 
 interface AuthContextProps {
-  jwt: string;
-  setJwt: (value: string) => void;
+  isAuthenticated: boolean;
+  setIsAuthenticated: (value: boolean) => void;
   login: (username: string, password: string) => Promise<void>;
   register: (username: string, password: string) => Promise<void>;
 }
@@ -12,8 +13,10 @@ interface AuthContextProps {
 export const AuthContext = createContext<AuthContextProps | undefined>(undefined);
 
 export function AuthProvider({children}: {children: ReactNode}) {
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
 
   const login = async (username: string, password: string) => {
+    
     try {
       const response = await authApiClient.post("/login", {
         username,
@@ -21,12 +24,8 @@ export function AuthProvider({children}: {children: ReactNode}) {
       });
 
       const token = response.data;
-      console.log(token);
-      localStorage.setItem("jwt", token);
-      
-      const decode = jwtDecode<JwtPayload>(token);
-      const name = decode.sub || "Default";
-      localStorage.setItem("username", name);
+      setAuthData(token);
+      setIsAuthenticated(true);
     } catch (error) {
       throw new Error("Invalid login credentials or network error.");
     }
@@ -44,7 +43,7 @@ export function AuthProvider({children}: {children: ReactNode}) {
   };
 
   return (
-    <AuthContext.Provider value={{ login, register }}>
+    <AuthContext.Provider value={{ isAuthenticated, setIsAuthenticated, login, register }}>
       {children}
     </AuthContext.Provider>
   );
