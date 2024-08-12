@@ -11,6 +11,7 @@
 - [x] make portfolio endpoint private until logged in
 - [ ] if refresh token is expired then send user back to login screen
 - [x] automatically go to portfolio if refresh token valid
+- [ ] need to make other components use the useAxios function instead of apiClient
 ## Backend
 - [x] create access and refresh token when either access token is expired and refresh is not
 - [x] create and store refresh tokens on login
@@ -45,6 +46,5 @@
 - when client needs a new token we will check their refresh token against the one in the database
   - if the refresh token is expired then they need to login again
   - if not then issue new jwt and refresh token for the user
-
 # Database Notes
 - to truncate the table and set the auto id back to 1 run `TRUNCATE TABLE your_table_name RESTART IDENTITY;`
