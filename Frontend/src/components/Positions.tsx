@@ -3,12 +3,13 @@ import { InvestmentPosition } from "../abstractions/InvestmentPosition";
 import UnrealizedGainsContext from "../contexts/UnrealizedGainsContext";
 import "../stylesheets/Positions.css";
 import { useReloadContext } from "../contexts/ReloadContext";
-import apiClient from "../api/apiClient";
+import useAxios from "../hooks/useAxios";
 
 function Positions() {
   const [positions, setPositions] = useState<InvestmentPosition[]>([]);
   const context = useContext(UnrealizedGainsContext);
   const { reload } = useReloadContext();
+  const axiosInstance = useAxios();
 
   if (!context) {
     throw new Error("need unrealized gains provider");
@@ -25,7 +26,7 @@ function Positions() {
 
   async function getPositions() {
     try {
-      const response = await apiClient.get("/positions");
+      const response = await axiosInstance.get("/positions");
       const data = response.data;
       setPositions(data);
       const totalUnrealizedGains = data.reduce((sum: number, position: InvestmentPosition) => sum + position.pnl, 0);
@@ -42,7 +43,7 @@ function Positions() {
     }, 5*60*1000);  
     getPositions();
     return () => clearInterval(timer);
-  }, [reload]);
+  }, [axiosInstance, reload]);
   
   return (
     <div>

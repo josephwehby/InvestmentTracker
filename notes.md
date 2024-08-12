@@ -10,6 +10,7 @@
 - [ ] implement api call for portfolio graph
 - [x] make portfolio endpoint private until logged in
 - [ ] if refresh token is expired then send user back to login screen
+- [x] automatically go to portfolio if refresh token valid
 ## Backend
 - [x] create access and refresh token when either access token is expired and refresh is not
 - [x] create and store refresh tokens on login

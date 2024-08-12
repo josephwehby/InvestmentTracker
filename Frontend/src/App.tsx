@@ -11,9 +11,8 @@ import authApiClient from "./api/authClient";
 
 function App() {
   
-  /*
   const navigate = useNavigate();
-  const { setIsAuthenticated } = useAuthContext();
+  const { isAuthenticated, setIsAuthenticated } = useAuthContext();
   
   async function checkRefresh() {
     try {
@@ -21,26 +20,22 @@ function App() {
       if (response.status != 200) {
         throw new Error("Unable to process refresh token");
       }
+
       const token = response.data;
-      console.log(token);
       setAuthData(token);
       setIsAuthenticated(true);
       navigate("/portfolio");
+    
     } catch (error) {
-      if(axios.isAxiosError(error)) {
-        console.log(error.response?.status);
-        console.log(error.message);
-      }
       setIsAuthenticated(false);
       console.error("No refresh token. going to home page", error);
       navigate("/");
     }   
   }
-  
   useEffect(() => {
     checkRefresh();
   }, []);
-*/
+
   return (
     <>
       <div className="App">
