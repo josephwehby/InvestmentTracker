@@ -106,10 +106,27 @@ public class AuthService : IAuthService {
     _logger.LogInformation("Refresh token for {Username} is expired.", user.username);
     return "";
   }
+
+  public async Task<bool> Logout(string refresh_token) {
+    if (refresh_token == null) {
+      _logger.LogInformation("Refresh token is null");
+      return false;
+    }
+
+    var user = await _context.getUserFromRefreshToken(refresh_token);    
+    if (user == null) {
+      _logger.LogInformation("There is no user that has that refresh token");
+      return false;
+    }
+
+    await setRefreshTokenCookie("", user.id.Value);
+    _logger.LogInformation("Refresh cookie has been set to an empty string");
+    return true;
+  }
   
   private async Task setRefreshTokenCookie(string refresh_token, Guid userid) {
     var created = DateTime.UtcNow;
-    var expires = DateTime.UtcNow.AddMinutes(20);
+    var expires = DateTime.UtcNow.AddDays(7);
 
     var cookieOptions = new CookieOptions {
       HttpOnly = true,
@@ -132,7 +149,7 @@ public class AuthService : IAuthService {
         new Claim("userid", id.ToString()),
         new Claim(JwtRegisteredClaimNames.Sub, username)
       },
-      expires: DateTime.UtcNow.AddDays(7),
+      expires: DateTime.UtcNow.AddMinutes(20),
       signingCredentials: signinCredentials
     );
 

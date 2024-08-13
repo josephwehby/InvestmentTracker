@@ -12,6 +12,8 @@
 - [ ] if refresh token is expired then send user back to login screen
 - [x] automatically go to portfolio if refresh token valid
 - [ ] need to make other components use the useAxios function instead of apiClient
+- [ ] add logout support
+
 ## Backend
 - [x] create access and refresh token when either access token is expired and refresh is not
 - [x] create and store refresh tokens on login
@@ -29,6 +31,7 @@
   - [x] trade service
   - [x] userid service
   - [x] closed pnls 
+  - [x] add logout support
 
 ## Cron Job
 - [x] update cron job to account for the new userid field

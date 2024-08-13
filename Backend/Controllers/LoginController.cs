@@ -60,4 +60,21 @@ public class LoginController : ControllerBase {
 
     return Ok(jwt);
   }
+
+  [HttpPost("logout")]
+  public async Task<IActionResult> Logout() {
+    var refresh_token = HttpContext.Request.Cookies["refreshToken"];
+    if (refresh_token == null) {
+      _logger.LogInformation("No refresh token cookie provided to logout");
+      return Unauthorized();
+    }
+
+    bool logout = await _authService.Logout(refresh_token);
+    if (!logout) {
+      _logger.LogInformation("Unable to logout");
+      return Unauthorized();
+    }
+
+    return Ok();
+  }
 }

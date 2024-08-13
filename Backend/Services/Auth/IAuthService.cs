@@ -7,4 +7,5 @@ public interface IAuthService {
   public Task<string> Authenticate(LoginUser user);
   public Task<bool> Register(LoginUser user);
   public Task<string> Refresh(string refresh_token);
+  public Task<bool> Logout(string refresh_token);
 }
