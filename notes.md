@@ -12,7 +12,7 @@
 - [ ] if refresh token is expired then send user back to login screen
 - [x] automatically go to portfolio if refresh token valid
 - [ ] need to make other components use the useAxios function instead of apiClient
-- [ ] add logout support
+- [x] add logout support
 
 ## Backend
 - [x] create access and refresh token when either access token is expired and refresh is not
