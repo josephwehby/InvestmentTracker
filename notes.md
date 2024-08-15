@@ -49,5 +49,7 @@
 - when client needs a new token we will check their refresh token against the one in the database
   - if the refresh token is expired then they need to login again
   - if not then issue new jwt and refresh token for the user
+- logout works by deleting the refresh token and letting jwt expire
+
 # Database Notes
 - to truncate the table and set the auto id back to 1 run `TRUNCATE TABLE your_table_name RESTART IDENTITY;`
