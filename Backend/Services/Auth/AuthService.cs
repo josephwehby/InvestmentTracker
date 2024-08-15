@@ -119,7 +119,7 @@ public class AuthService : IAuthService {
       return false;
     }
 
-    await setRefreshTokenCookie("", user.id.Value);
+    await _context.setRefreshToken(user.id.Value, "", DateTime.UtcNow, DateTime.UtcNow);
     _logger.LogInformation("Refresh cookie has been set to an empty string");
     return true;
   }
