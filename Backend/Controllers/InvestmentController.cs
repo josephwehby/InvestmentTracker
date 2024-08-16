@@ -53,4 +53,9 @@ public class InvestmentController : ControllerBase {
     var closed = await _closedpnlservice.getClosedPnL();
     return Ok(closed);
   }
+
+  [HttpGet("graph")]
+  public async Task<ActionResult> getPnlGraph() {
+    _logger.LogINformation("GET request for onl graph.");
+  }
 }
