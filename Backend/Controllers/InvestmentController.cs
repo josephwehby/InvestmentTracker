@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Backend.Models;
 using Backend.Services.Positions;
 using Backend.Services.Trades;
+using Backend.Services.PnlGraph;
 using Newtonsoft.Json;
 using Backend.Services.ClosedPnLs;
 using Microsoft.AspNetCore.Authorization;
@@ -16,11 +17,14 @@ public class InvestmentController : ControllerBase {
   private readonly ITradeService _tradeService;
   private readonly IPositionService _positionService;
   private readonly IClosedPnLService _closedpnlservice;
+  private readonly IPnlGraphService _pnlgraphservice;
   private readonly ILogger _logger;
-  public InvestmentController(ITradeService tradeService, IPositionService positionService, IClosedPnLService closedService, ILogger<InvestmentController> logger) {
+
+  public InvestmentController(ITradeService tradeService, IPositionService positionService, IClosedPnLService closedService, IPnlGraphService pnlgraphservice, ILogger<InvestmentController> logger) {
     _tradeService = tradeService;
     _positionService = positionService;
     _closedpnlservice = closedService;
+    _pnlgraphservice = pnlgraphservice;
     _logger = logger;
   }
   
@@ -56,6 +60,8 @@ public class InvestmentController : ControllerBase {
 
   [HttpGet("graph")]
   public async Task<ActionResult> getPnlGraph() {
-    _logger.LogINformation("GET request for onl graph.");
+    _logger.LogInformation("GET request for pnl graph.");
+    var pnls = await _pnlgraphservice.getPnlGraph();
+    return Ok(pnls);
   }
 }

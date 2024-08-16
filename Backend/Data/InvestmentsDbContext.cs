@@ -9,6 +9,7 @@ public class InvestmentsDbContext : DbContext {
   
   public DbSet<Trade> trades { get; set; }
   public DbSet<ClosedPnL> closed_pnl { get; set; }
+  public DbSet<HistoricPnL> historic_pnl { get; set; }
 
   public InvestmentsDbContext(DbContextOptions<InvestmentsDbContext> options) : base(options) {}
 
@@ -72,5 +73,10 @@ public class InvestmentsDbContext : DbContext {
   // need userid as each trade is unique to a user
   public async Task<List<Trade>> getTrades(Guid userid) {
     return await trades.Where(t => t.userid == userid).ToListAsync();
+  }
+  
+  // select all historic trades to be displayed on graph
+  public async Task<List<HistoricPnL>> getHistoricPnL(Guid userid) {
+    return await historic_pnl.Where(t => t.userid == userid).ToListAsync();
   }
 }

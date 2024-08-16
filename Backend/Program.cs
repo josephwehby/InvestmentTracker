@@ -1,8 +1,9 @@
 using Backend.Services.Trades;
 using Backend.Services.Auth;
 using Backend.Services.UserID;
-using System.Text;
 using Backend.Services.Positions;
+using Backend.Services.PnlGraph;
+using System.Text;
 using Backend.Data;
 using Microsoft.EntityFrameworkCore;
 using Backend.Services.ClosedPnLs;
@@ -34,11 +35,16 @@ builder.Services.AddAuthorization();
 builder.Services.AddHttpContextAccessor();
 
 builder.Services.AddControllers();
+
+// servies
 builder.Services.AddScoped<ITradeService, TradeService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IClosedPnLService, ClosedPnLService>();
 builder.Services.AddScoped<IPositionService, PositionService>();
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IPnlGraphService, PnlGraphService>();
+
+// database contexts
 builder.Services.AddDbContext<InvestmentsDbContext>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 builder.Services.AddDbContext<UserDbContext>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
