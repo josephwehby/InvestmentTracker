@@ -13,6 +13,19 @@ thead tr {
   color: white;
 }
 
+tr button {
+  background: none;
+  border: none;
+  font-size: 16px;
+  color: white;
+  font-weight: bold;
+  padding: 7px 20px 7px 20px;
+}
+
+tr button:hover {
+  cursor: pointer;
+}
+
 th, td {
   padding: 12px 10px;
   text-align: center;

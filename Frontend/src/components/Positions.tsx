@@ -1,4 +1,4 @@
-import { useEffect, useState, useContext } from "react";
+import { useEffect, useState, useContext, useMemo } from "react";
 import { InvestmentPosition } from "../abstractions/InvestmentPosition";
 import UnrealizedGainsContext from "../contexts/UnrealizedGainsContext";
 import "../stylesheets/Positions.css";
@@ -7,6 +7,8 @@ import useAxios from "../hooks/useAxios";
 
 function Positions() {
   const [positions, setPositions] = useState<InvestmentPosition[]>([]);
+  const [sortedField, setSortedField] = useState<string | null>(null);
+  const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('asc');
   const context = useContext(UnrealizedGainsContext);
   const { reload } = useReloadContext();
   const axiosInstance = useAxios();
@@ -24,6 +26,15 @@ function Positions() {
     return "red";
   }
 
+  function handleSort(field: string) {
+    if (field == sortedField) {
+      setSortDirection(prev => prev === 'asc' ? 'desc' : 'asc');
+    } else {
+      setSortedField(field);
+      setSortDirection('asc');
+    }
+  }
+
   async function getPositions() {
     try {
       const response = await axiosInstance.get("/positions");
@@ -35,7 +46,24 @@ function Positions() {
       setPositions([]);
       console.error("Error: " + error);
     } 
-  }  
+  }
+
+  const sorted_positions = useMemo(
+    function() {
+      if (!sortedField) return positions;
+      return positions.slice().sort(function(a, b) {
+        const aval = a[sortedField];
+        const bval = b[sortedField];
+
+        if (aval < bval) {
+          return sortDirection === 'asc' ? -1 : 1;
+        } else if (aval > bval){
+          return sortDirection === 'asc' ? 1 : -1;
+        } else {
+          return 0;
+        }
+      });
+    }, [positions, sortedField, sortDirection]);
   
   useEffect(() => {
     const timer = setInterval(() => {
@@ -50,18 +78,18 @@ function Positions() {
       <table>
         <thead>
           <tr>
-            <th>Ticker</th>
-            <th>Current Price</th>
-            <th>Avg Cost</th>
-            <th>Quantity</th>
-            <th>Cost Basis</th>
-            <th>Market Value</th>
-            <th>Fees</th>
-            <th>PnL</th>
+            <th><button type="button" onClick={() => handleSort("ticker")}>Ticker</button></th>
+            <th><button type="button" onClick={() => handleSort("current_price")}>Current Price</button></th>
+            <th><button type="button" onClick={() => handleSort("avg_cost")}>Avg Cost</button></th>
+            <th><button type="button" onClick={() => handleSort("quantity")}>Quantity</button></th>
+            <th><button type="button" onClick={() => handleSort("cost_basis")}>Cost Basis</button></th>
+            <th><button type="button" onClick={() => handleSort("market_value")}>Market Value</button></th>
+            <th><button type="button" onClick={() => handleSort("fees")}>Fees</button></th>
+            <th><button type="button" onClick={() => handleSort("pnl")}>PnL</button></th>
           </tr>
         </thead>
         <tbody>
-          {positions.map((position) => (
+          {sorted_positions.map((position) => (
             <tr key={position.ticker}>
               <td>{position.ticker}</td>
               <td>${position.current_price.toFixed(2)}</td>

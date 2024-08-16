@@ -2,12 +2,13 @@ import "../stylesheets/PortfolioValue.css";
 import UnrealizedGainsContext from "../contexts/UnrealizedGainsContext";
 import { useReloadContext } from "../contexts/ReloadContext";
 import { useState, useContext, useEffect } from "react";
-import apiClient from "../api/apiClient";
+import useAxios from "../hooks/useAxios";
 
 function PortfolioValue() {
   const [closed, setClosed] = useState(0);
   const context = useContext(UnrealizedGainsContext);
   const { reload } = useReloadContext();
+  const axiosInstance = useAxios();
 
   if (!context) {
     throw new Error("need unrealized gains provider");
@@ -24,7 +25,7 @@ function PortfolioValue() {
 
   async function getClosedPnL() {
     try {
-      const response = await apiClient.get("/closed");
+      const response = await axiosInstance.get("/closed");
       if (response.status < 200 || response.status >= 300) {
         throw new Error("[!] Failed to fetch closesd pnl");
       }

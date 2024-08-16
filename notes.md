@@ -11,8 +11,10 @@
 - [x] make portfolio endpoint private until logged in
 - [ ] if refresh token is expired then send user back to login screen
 - [x] automatically go to portfolio if refresh token valid
-- [ ] need to make other components use the useAxios function instead of apiClient
+- [x] need to make other components use the useAxios function instead of apiClient 
 - [x] add logout support
+- [ ] integrate live stock quote api 
+- [x] make positions table sortable
 
 ## Backend
 - [x] create access and refresh token when either access token is expired and refresh is not
@@ -35,6 +37,7 @@
 
 ## Cron Job
 - [x] update cron job to account for the new userid field
+
 ## Deployment
 - [ ] deploy to raspberry pi or cheap hosting provider
 - [ ] deploy app using Docker

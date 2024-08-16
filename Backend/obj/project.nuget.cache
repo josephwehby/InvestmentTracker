@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "dm+CV0oOPva34TYhtm8swYXCJFCiHXynwoTFx6Y2EicwiojnoKIrwULkjGFWSurZYiU0/G36cUVLHbh4Irx4gg==",
+  "dgSpecHash": "meG51R9Hma0EJIVSjkQD8WRQ6EvtH+/oGuc3tm2DTxp4Qmu0gqajJN1NLapRHQmpMraTDbkGK7mSvb3LDOZ58Q==",
   "success": true,
-  "projectFilePath": "C:\\Users\\josep\\documents\\programming\\csharp\\InvestmentTracker\\backend\\Backend.csproj",
+  "projectFilePath": "C:\\Users\\josep\\Documents\\Programming\\csharp\\InvestmentTracker\\backend\\Backend.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\josep\\.nuget\\packages\\microsoft.aspnetcore.authentication.jwtbearer\\7.0.0\\microsoft.aspnetcore.authentication.jwtbearer.7.0.0.nupkg.sha512",
     "C:\\Users\\josep\\.nuget\\packages\\microsoft.aspnetcore.openapi\\7.0.11\\microsoft.aspnetcore.openapi.7.0.11.nupkg.sha512",

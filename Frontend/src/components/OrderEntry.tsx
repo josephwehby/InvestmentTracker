@@ -1,8 +1,7 @@
 import { useReloadContext } from "../contexts/ReloadContext";
 import "../stylesheets/OrderEntry.css";
 import { useState, ChangeEvent } from "react";
-import apiClient from "../api/apiClient";
-
+import useAxios from "../hooks/useAxios";
 
 function OrderEntry() {
   const [ticker, setTicker] = useState<string>("");
@@ -11,7 +10,8 @@ function OrderEntry() {
   const [ordertype, setOrdertype] = useState<string>("buy");
   const [fees, setFees] = useState<number>(0);
   const { reload, setReload } = useReloadContext();
-  
+  const axiosInstance = useAxios();
+
   function checkNumericalInput(e: ChangeEvent<HTMLInputElement>) {
     const { id, value } = e.target;    
     const clean_num = parseFloat(value);
@@ -32,7 +32,7 @@ function OrderEntry() {
 
   async function addTrade() {
     try{
-      const response = await apiClient.post("/add",{
+      const response = await axiosInstance.post("/add",{
           ticker: ticker,
           trade_type: ordertype,
           shares: shares,
