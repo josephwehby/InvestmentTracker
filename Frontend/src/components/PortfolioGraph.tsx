@@ -1,33 +1,13 @@
+import { useState, useEffect } from "react";
 import { XAxis, YAxis, CartesianGrid, ResponsiveContainer, AreaChart, Area, Tooltip, TooltipProps } from 'recharts';
 import { ValueType, NameType } from 'recharts/types/component/DefaultTooltipContent';
+import useAxios from "../hooks/useAxios";
 import "../stylesheets/PortfolioGraph.css";
 
 interface DataPoint {
-  day: string;
   pnl: number;
+  closing_pnl_date: string;
 }
-
-const raw_data: DataPoint[] = [
-  { day: "5/1/2024", pnl: 20 },
-  { day: "5/2/2024", pnl: 15 },
-  { day: "5/3/2024", pnl: 5 },
-  { day: "5/4/2024", pnl: 10 },
-  { day: "5/5/2024", pnl: 20 },
-  { day: "5/6/2024", pnl: 12 },
-  { day: "5/7/2024", pnl: 3 },
-  { day: "5/8/2024", pnl: 18 },
-  { day: "5/9/2024", pnl: 10 },
-  { day: "5/10/2024", pnl: 7 },
-  { day: "5/11/2024", pnl: 30 },
-  { day: "5/12/2024", pnl: 28 },
-  { day: "5/13/2024", pnl: 20 },
-  { day: "5/14/2024", pnl: 29 },
-  { day: "5/15/2024", pnl: 23 },
-  { day: "5/16/2024", pnl: 16 },
-  { day: "5/17/2024", pnl: 21 },
-];
-
-const data = raw_data.filter((_, index) => index % 2 === 0);
 
 function customeToolTip({active, payload, label} : TooltipProps<ValueType, NameType>) {
   if (active && payload && payload.length) {
@@ -49,10 +29,36 @@ function customXAxis({ x, y, payload}: any) {
 }
 
 function PortfolioGraph() {
+  const [data, setData] = useState<DataPoint[] | null>(null);
+  const axiosInstance = useAxios();
+  
+  function swap(closing_date: string) {
+    const [year, month, day] = closing_date.split("-");
+    return `${month}-${day}-${year}`
+  }
+
+  async function getGraphData() {
+
+    try {
+      const response = await axiosInstance.get("/graph");
+      const graph = response.data.map((point) => ({
+        ...point,
+        closing_pnl_date: swap(point.closing_pnl_date.split("T")[0]),
+      }));
+      setData(graph);
+    } catch (error) {
+      console.error("Error while fetching portfolio graph", error);
+    }
+  }
+
+  useEffect(() => {
+    getGraphData();
+  }, []);
+
 
   return (
     <ResponsiveContainer width="70%" height={440} max-wdith="80%">
-      <AreaChart data={data} margin={{ top: 20, right: 5, left: 20, bottom: 60}}>
+      <AreaChart data={data || []} margin={{ top: 20, right: 5, left: 20, bottom: 60}}>
       <defs>
         <linearGradient id="color" x1="0" y1="0" x2="0" y2="1">
          <stop offset="0%" stopColor="#2451B7" stopOpacity={0.4}></stop> 
@@ -60,7 +66,7 @@ function PortfolioGraph() {
         </linearGradient>
       </defs>
         <Area dataKey="pnl" fill="url(#color)" />
-        <XAxis dataKey="day" padding={{ left: 20 , right: 20 }} tick={customXAxis}/>
+        <XAxis dataKey="closing_pnl_date" padding={{ left: 20 , right: 20 }} tick={customXAxis}/>
         <YAxis dataKey="pnl" axisLine={false} tickLine={false} tickFormatter={ (n:number) => `$${n.toFixed(2)}`}/>
         <Tooltip content={customeToolTip}/>
         <CartesianGrid opacity={0.1} vertical={false} />
