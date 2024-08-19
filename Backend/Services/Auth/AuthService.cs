@@ -118,15 +118,17 @@ public class AuthService : IAuthService {
       _logger.LogInformation("There is no user that has that refresh token");
       return false;
     }
+    
+    // change expiration to have a date of yesterday so it will be removed from browser
+    await setRefreshTokenCookie("", user.id.Value, -1);
 
-    await _context.setRefreshToken(user.id.Value, "", DateTime.UtcNow, DateTime.UtcNow);
     _logger.LogInformation("Refresh cookie has been set to an empty string");
     return true;
   }
   
-  private async Task setRefreshTokenCookie(string refresh_token, Guid userid) {
+  private async Task setRefreshTokenCookie(string refresh_token, Guid userid, int days = 7) {
     var created = DateTime.UtcNow;
-    var expires = DateTime.UtcNow.AddDays(7);
+    var expires = DateTime.UtcNow.AddDays(days);
 
     var cookieOptions = new CookieOptions {
       HttpOnly = true,

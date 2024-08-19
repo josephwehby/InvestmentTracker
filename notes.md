@@ -7,13 +7,12 @@
   - [x] add interceptors with axios for outgoing requests
   - [x] add interceptors for incoming requests
   - [x] move login and register to auth context
-- [ ] implement api call for portfolio graph
+- [x] implement api call for portfolio graph
 - [x] make portfolio endpoint private until logged in
-- [ ] if refresh token is expired then send user back to login screen
+- [x] if refresh token is expired then send user back to login screen
 - [x] automatically go to portfolio if refresh token valid
 - [x] need to make other components use the useAxios function instead of apiClient 
 - [x] add logout support
-- [ ] integrate live stock quote api 
 - [x] make positions table sortable
 
 ## Backend
@@ -34,6 +33,7 @@
   - [x] userid service
   - [x] closed pnls 
   - [x] add logout support
+- [ ] integrate live stock quote api 
 
 ## Cron Job
 - [x] update cron job to account for the new userid field

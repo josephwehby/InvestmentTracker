@@ -30,7 +30,7 @@ function App() {
       setIsAuthenticated(false);
       console.error("No refresh token. going to home page", error);
       navigate("/");
-    }   
+    }
   }
   useEffect(() => {
     checkRefresh();
