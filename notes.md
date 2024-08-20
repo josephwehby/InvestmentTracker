@@ -37,6 +37,7 @@
 
 ## Cron Job
 - [x] update cron job to account for the new userid field
+- [ ] integrate live stock quote api 
 
 ## Deployment
 - [ ] deploy to raspberry pi or cheap hosting provider
@@ -56,3 +57,7 @@
 
 # Database Notes
 - to truncate the table and set the auto id back to 1 run `TRUNCATE TABLE your_table_name RESTART IDENTITY;`
+
+# Random
+- just realized my program does not handle stock splits at all. so hopefully none of my stocks split...
+- found api by the name of Tiingo and it appears to be working correctly. i can make 50 api calls an hour which is more than enough.
