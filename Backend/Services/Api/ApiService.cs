@@ -1,12 +1,16 @@
+using System;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using Newtonsoft.Json;
+
 namespace Backend.Services.Api;
 
 public class ApiService : IApiService {
+  
   private static readonly HttpClient _httpClient = new HttpClient {
     DefaultRequestHeaders = 
     {
-      Authorization = new AuthenticationHeaderValue("Key", "ada"),
+      Authorization = new AuthenticationHeaderValue("Key", Environment.GetEnvironmentVariable("TIINGO-KEY")),
       Accept = { new MediaTypeWithQualityHeaderValue("application/json") }
     }
   };
@@ -16,14 +20,13 @@ public class ApiService : IApiService {
     decimal price = 0;
 
     try {
-      var response = await _httpClient.GetAsync(url);
-      
-      if (response.IsSuccessStatusCode) {
-        Console.WriteLine(response); 
-      }
+        string response = await _httpClient.GetStringAsync(url);
+        //var parsed = Newtonsoft.JsonConvert.DeserializeObject(result);
+        Console.WriteLine(response);
+
 
     } catch(HttpRequestException e) {
-      
+
     } 
 
     return price;

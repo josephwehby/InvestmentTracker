@@ -1,13 +1,16 @@
 using Backend.Models;
 using Backend.Services.Trades;
+using Backend.Services.Api;
 
 namespace Backend.Services.Positions;
 
 public class PositionService : IPositionService {
   private readonly ITradeService _tradeService;
+  private readonly IApiService _apiService;
 
-  public PositionService(ITradeService tradeService) {
+  public PositionService(ITradeService tradeService, IApiService apiService) {
     _tradeService = tradeService;
+    _apiService = apiService;
   }
 
   public async Task<IEnumerable<Position>> getAllPositions() {
@@ -19,7 +22,7 @@ public class PositionService : IPositionService {
      
     foreach (var group in grouped_trades) {
       var trade_task = group.ToList();
-      var task = Task.Run(() => createPosition(trade_task));
+      var task = createPosition(trade_task);
       task_positions.Add(task);
     }
 
@@ -27,7 +30,7 @@ public class PositionService : IPositionService {
     return positions;
   }
 
-  private Position createPosition(List<Trade> trades) {
+  private async Task<Position> createPosition(List<Trade> trades) {
     Position position = new Position {
       ticker = trades[0].ticker,
       current_price = 0,
@@ -41,7 +44,7 @@ public class PositionService : IPositionService {
     };
 
     // api for this but hardcoding for now
-    decimal current_shareprice = 100;
+    decimal current_shareprice = await _apiService.getPrice(trades[0].ticker);
 
     foreach (var trade in trades) {
       position.quantity += trade.shares;
