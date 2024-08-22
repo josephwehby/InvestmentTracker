@@ -9,5 +9,6 @@ header = {
 
 r = requests.get("https://api.tiingo.com/iex/SPY", headers=header)
 data = r.json()
+print(data)
 print(data[0]["last"])
 #print(data["last"])
