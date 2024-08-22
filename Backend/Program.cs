@@ -3,6 +3,7 @@ using Backend.Services.Auth;
 using Backend.Services.UserID;
 using Backend.Services.Positions;
 using Backend.Services.PnlGraph;
+using Backend.Services.Api;
 using System.Text;
 using Backend.Data;
 using Microsoft.EntityFrameworkCore;
@@ -43,6 +44,7 @@ builder.Services.AddScoped<IClosedPnLService, ClosedPnLService>();
 builder.Services.AddScoped<IPositionService, PositionService>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IPnlGraphService, PnlGraphService>();
+builder.Services.AddScoped<IApiService, ApiService>();
 
 // database contexts
 builder.Services.AddDbContext<InvestmentsDbContext>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
