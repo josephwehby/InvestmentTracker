@@ -33,7 +33,7 @@
   - [x] userid service
   - [x] closed pnls 
   - [x] add logout support
-- [ ] integrate live stock quote api 
+- [x] integrate live stock quote api 
 
 ## Cron Job
 - [x] update cron job to account for the new userid field

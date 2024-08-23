@@ -8,4 +8,5 @@ export interface InvestmentPosition {
   fees: number;
   pnl: number;
   percent_gain: number;
+  price_day_difference: number;
 }

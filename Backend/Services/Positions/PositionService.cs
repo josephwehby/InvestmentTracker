@@ -44,7 +44,9 @@ public class PositionService : IPositionService {
     };
 
     // api for this but hardcoding for now
-    decimal current_shareprice = await _apiService.getPrice(trades[0].ticker);
+    var api_call = await _apiService.getPrice(trades[0].ticker);
+    decimal current_shareprice = api_call.Item1;
+    position.price_day_difference = api_call.Item2;
 
     foreach (var trade in trades) {
       position.quantity += trade.shares;

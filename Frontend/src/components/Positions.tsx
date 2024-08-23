@@ -20,7 +20,7 @@ function Positions() {
   const { setUnrealizedGains } = context;
 
   function getColor(value: number) {
-    if (value > 0) {
+    if (value >= 0) {
       return "green";
     }
     return "red";
@@ -80,6 +80,7 @@ function Positions() {
           <tr>
             <th><button type="button" onClick={() => handleSort("ticker")}>Ticker</button></th>
             <th><button type="button" onClick={() => handleSort("current_price")}>Current Price</button></th>
+            <th><button type="button" onClick={() => handleSort("price_day_difference")}>Daily Price Change</button></th>
             <th><button type="button" onClick={() => handleSort("avg_cost")}>Avg Cost</button></th>
             <th><button type="button" onClick={() => handleSort("quantity")}>Quantity</button></th>
             <th><button type="button" onClick={() => handleSort("cost_basis")}>Cost Basis</button></th>
@@ -92,7 +93,8 @@ function Positions() {
           {sorted_positions.map((position) => (
             <tr key={position.ticker}>
               <td>{position.ticker}</td>
-              <td>${position.current_price.toFixed(2)}</td>
+              <td><span style={{color: getColor(position.price_day_difference)}}>${position.current_price.toFixed(2)}</span></td>
+              <td><span style={{color: getColor(position.price_day_difference)}}>${position.price_day_difference.toFixed(2)}</span></td>
               <td>${position.avg_cost.toFixed(2)}</td>
               <td>{position.quantity.toFixed(2)}</td>
               <td>${position.cost_basis.toFixed(2)}</td>

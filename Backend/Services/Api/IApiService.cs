@@ -1,5 +1,5 @@
 namespace Backend.Services.Api;
 
 public interface IApiService {
-  public Task<decimal> getPrice(string ticker);
+  public Task<(decimal, decimal)> getPrice(string ticker);
 }

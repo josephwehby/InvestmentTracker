@@ -16,7 +16,7 @@ public class ApiService : IApiService {
     }
   };
 
-  public async Task<decimal> getPrice(string ticker) {
+  public async Task<(decimal, decimal)> getPrice(string ticker) {
     decimal price = 0;
 
     try {
@@ -28,8 +28,9 @@ public class ApiService : IApiService {
           var first = root[0];
 
           price = first.GetProperty("last").GetDecimal();
-
-          return price;
+          var prev_close = first.GetProperty("prevClose").GetDecimal();
+          
+          return (price, price-prev_close);
         }
     } catch(HttpRequestException ex) {
         Console.WriteLine($"Error while getting stock quotes: {ex}");
@@ -38,9 +39,10 @@ public class ApiService : IApiService {
         Console.WriteLine($"Error parsing json: {ex}");
         throw;
     } catch (Exception e) {
-        Console.WriteLine(e);
+        Console.WriteLine($"Error making api call: {e}");
+        throw;
     }
 
-    return price;
+    return (price, 0);
   }
 }

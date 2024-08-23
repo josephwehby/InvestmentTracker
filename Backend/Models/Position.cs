@@ -12,4 +12,5 @@ public class Position {
   public decimal fees { get; set; }
   public decimal pnl { get; set; }
   public decimal percent_gain { get; set; }
+  public decimal price_day_difference { get; set; }
 }
