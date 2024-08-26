@@ -103,7 +103,7 @@ def main():
         trades = get_trades(cursor, id)
         pnl = calculate_pnl(trades)
         updateDatabase(cursor, pnl, id)
-        print("ID: " + id + " | pnl (" + str(pnl) + ") has been added to historic pnl")
+        print("ID: " + id + " | pnl ($" + str(round(pnl, 3)) + ") has been added to historic pnl")
     conn.commit()
     conn.close()
 
