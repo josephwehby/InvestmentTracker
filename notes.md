@@ -37,7 +37,7 @@
 
 ## Cron Job
 - [x] update cron job to account for the new userid field
-- [ ] integrate live stock quote api 
+- [x] integrate live stock quote api 
 
 ## Deployment
 - [ ] deploy to raspberry pi or cheap hosting provider
