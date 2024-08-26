@@ -1,4 +1,29 @@
 import psycopg2
+import os
+import requests
+from decimal import Decimal
+
+api_key = os.environ["TIINGO-KEY"]
+
+def getPrice(ticker):
+    api = "Token " + api_key
+        
+    header = {
+        'Content-Type': 'application/json',
+        'Authorization': api
+    }
+    
+    url = f"https://api.tiingo.com/iex/{ticker}"
+    try:
+        r = requests.get(url, headers=header)
+        data = r.json()
+        price = data[0]["last"]
+        print("Ticker: " + str(price))
+        return Decimal(price)
+    except Exception as e:
+        print(f"Error getting stock price for {ticker} | {e}")
+        return 0
+
 
 def connect():
     try:
@@ -14,6 +39,7 @@ def connect():
         print("[!] Unable to connect to database")
         return None
 
+
 def getUsers(cursor):
     cursor.execute("SELECT * FROM users;")
     users = cursor.fetchall()
@@ -23,10 +49,12 @@ def getUsers(cursor):
         userids.append(user[0])
     return userids    
 
+
 def get_trades(cursor, id):
     cursor.execute("SELECT * FROM trades WHERE userid = %s;", (id,))
     trades = cursor.fetchall()
     return trades
+
 
 def calculate_pnl(trades):
     # split up trades based on ticker
@@ -34,7 +62,7 @@ def calculate_pnl(trades):
     group = {}
     
     for sub in trades:
-        ticker = sub[2]
+        ticker = sub[3]
         if ticker not in group:
             group[ticker] = []
         group[ticker].append(sub)
@@ -42,18 +70,23 @@ def calculate_pnl(trades):
     total_pnl = 0
     for ticker, positions in group.items():
         ticker_pnl = 0
-        ticker_current_price = 100
+        # get current price from api
+        ticker_current_price = getPrice(ticker)
         for p in positions:
             shares = p[4]
             price = p[5]
-            pnl = (ticker_current_price - price) * shares
+            fee = p[6]
+            cost = price
+            pnl = (ticker_current_price - (price + fee)) * shares
             ticker_pnl += pnl
         total_pnl += ticker_pnl 
     
-    return pnl
+    return total_pnl
+
 
 def updateDatabase(cursor, pnl, id):
     cursor.execute("INSERT INTO historic_pnl (userid, pnl) VALUES (%s, %s)", (id, pnl,))
+
 
 def main():
     print("[!] Calculating ending day pnl of all users' stock positions...")
@@ -70,7 +103,7 @@ def main():
         trades = get_trades(cursor, id)
         pnl = calculate_pnl(trades)
         updateDatabase(cursor, pnl, id)
-        print("ID: " + id + " | pnl has been added to historic pnl")
+        print("ID: " + id + " | pnl (" + str(pnl) + ") has been added to historic pnl")
     conn.commit()
     conn.close()
 
