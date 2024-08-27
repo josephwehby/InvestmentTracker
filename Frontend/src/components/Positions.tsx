@@ -94,7 +94,7 @@ function Positions() {
             <tr key={position.ticker}>
               <td>{position.ticker}</td>
               <td><span style={{color: getColor(position.price_day_difference)}}>${position.current_price.toFixed(2)}</span></td>
-              <td><span style={{color: getColor(position.price_day_difference)}}>${position.price_day_difference.toFixed(2)}</span></td>
+              <td><span style={{color: getColor(position.price_day_difference)}}>{position.price_day_difference > 0 ? "+" : ""}{position.price_day_difference.toFixed(2)}</span></td>
               <td>${position.avg_cost.toFixed(2)}</td>
               <td>{position.quantity.toFixed(2)}</td>
               <td>${position.cost_basis.toFixed(2)}</td>
