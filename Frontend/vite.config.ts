@@ -9,5 +9,7 @@ export default defineConfig({
       key: '../Certificates/React/key.pem',
       cert: '../Certificates/React/cert.pem',
     },
+    host: '0.0.0.0',
+    port: 443,
   },
 })
