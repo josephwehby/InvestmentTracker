@@ -13,12 +13,12 @@ RUN npm run build
 FROM nginx:stable-alpine AS production 
 
 # copy over tls certs
-COPY ../Certificates/React/key.pem /etc/ssl/private/key.pem
-COPY ../Certificates/React/cert.pem /etc/ssl/certs/cert.pem
+COPY Certs/key.pem /etc/ssl/private/key.pem
+COPY Certs/cert.pem /etc/ssl/certs/cert.pem
 
-COPY --from=build /app/build /user/share/nginx/html 
+COPY --from=build /app/dist /usr/share/nginx/html 
 
-COPY frontend/nginx.conf /etc/nginx/nginx.conf
+COPY nginx.conf /etc/nginx/nginx.conf
 
 EXPOSE 443
 
