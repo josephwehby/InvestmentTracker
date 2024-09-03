@@ -52,8 +52,8 @@ function Positions() {
     function() {
       if (!sortedField) return positions;
       return positions.slice().sort(function(a, b) {
-        const aval = a[sortedField];
-        const bval = b[sortedField];
+        const aval = a[sortedField as keyof InvestmentPosition];
+        const bval = b[sortedField as keyof InvestmentPosition];
 
         if (aval < bval) {
           return sortDirection === 'asc' ? -1 : 1;

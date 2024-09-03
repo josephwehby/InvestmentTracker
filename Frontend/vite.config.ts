@@ -9,7 +9,7 @@ export default defineConfig({
       key: 'Certs/key.pem',
       cert: 'Certs/cert.pem',
     },
-    //host: '0.0.0.0',
-    //port: 443,
+    host: '0.0.0.0',
+    port: 443,
   },
 })

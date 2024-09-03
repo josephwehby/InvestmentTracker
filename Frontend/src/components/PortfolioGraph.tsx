@@ -41,7 +41,7 @@ function PortfolioGraph() {
 
     try {
       const response = await axiosInstance.get("/graph");
-      const graph = response.data.map((point) => ({
+      const graph = response.data.map((point: DataPoint) => ({
         ...point,
         closing_pnl_date: swap(point.closing_pnl_date.split("T")[0]),
       }));

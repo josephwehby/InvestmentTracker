@@ -1,5 +1,4 @@
 import  axios from "axios";
-import { useEffect } from "react";
 import apiClient from "../api/apiClient";
 import { useAuthContext } from "../contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
@@ -10,7 +9,7 @@ function useAxios() {
   const { setIsAuthenticated } = useAuthContext();
   const navigate = useNavigate();
   const [axiosInstance] = useState(() => {
-    const instance = apiClient;
+  const instance = apiClient;
 
   instance.interceptors.request.use(
     (config) => {
