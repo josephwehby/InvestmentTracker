@@ -9,10 +9,10 @@ function LogoutButton() {
 
   async function logout() {
     try {
-      const response = await authApiClient.post("/logout");
+      await authApiClient.post("/logout");
       localStorage.setItem("jwt", "");
       localStorage.setItem("username", "");
-      //setIsAuthenticated(false);
+      setIsAuthenticated(false);
       navigate("/");
     } catch(error) {
       console.error("Error logging out: ",error);

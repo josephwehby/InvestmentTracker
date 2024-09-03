@@ -12,7 +12,7 @@ import authApiClient from "./api/authClient";
 function App() {
   
   const navigate = useNavigate();
-  const { isAuthenticated, setIsAuthenticated } = useAuthContext();
+  const { setIsAuthenticated } = useAuthContext();
   
   async function checkRefresh() {
     try {

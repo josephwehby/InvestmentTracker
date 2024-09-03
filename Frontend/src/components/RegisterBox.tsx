@@ -8,14 +8,16 @@ function Register() {
   const [password, setPassword] = useState("");
   const [check, setCheck] = useState("");
   const [error, setError] = useState("");
-  const { register } = useAuthContext();
+  const { register } = useAuthContext(); 
+  const navigate = useNavigate();
 
   async function registerCreds() {
     try {
       await register(username, password);
       navigate("/login");
     } catch (error) {
-      Console.error(error);
+      setError("A network error has occured.");
+      console.error(error);
     }
   }
 

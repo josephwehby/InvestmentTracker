@@ -1,5 +1,4 @@
 import  axios from "axios";
-import { useEffect } from "react";
 
 const apiClient = axios.create({
   baseURL: "https://localhost:7274/investments",

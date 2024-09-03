@@ -1,6 +1,5 @@
 import { createContext, ReactNode, useContext, useState } from "react";
 import authApiClient from "../api/authClient";
-import { jwtDecode, JwtPayload } from "jwt-decode";
 import { setAuthData } from "../utils/authUtils";
 
 interface AuthContextProps {
@@ -33,10 +32,11 @@ export function AuthProvider({children}: {children: ReactNode}) {
 
   const register = async (username: string, password: string) => {
     try {
-      const response = await authApiClient("/register", { 
+      await authApiClient.post("/register", { 
         username,
         password,
       });
+      
     } catch (error) {
       throw new Error("Username already exists or network error");
     }
