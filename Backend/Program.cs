@@ -11,9 +11,15 @@ using Backend.Services.ClosedPnLs;
 using System.Net.Security;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using System.Security.Cryptography.X509Certificates;
 
 var builder = WebApplication.CreateBuilder(args);
 var config = builder.Configuration;
+
+builder.WebHost.ConfigureKestrel(options =>
+{
+  options.ListenAnyIP(5000);
+});
 
 builder.Services.AddAuthentication(cfg => {
   cfg.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -55,7 +61,7 @@ builder.Services.AddCors(options =>
   options.AddPolicy(name: "AllowReact",
     policy =>
       {
-        policy.WithOrigins("https://localhost:5173").AllowAnyHeader().AllowAnyMethod().AllowCredentials();
+        policy.WithOrigins("https://frontend").AllowAnyHeader().AllowAnyMethod().AllowCredentials();
       });
 });
 

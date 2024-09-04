@@ -33,7 +33,7 @@ function useAxios() {
         original._retry = true;
        
         try {   
-          const refresh = await axios.get("https://localhost:7274/auth/refresh", { 
+          const refresh = await axios.get("https://backend:5000/auth/refresh", { 
             withCredentials: true, 
           });
 

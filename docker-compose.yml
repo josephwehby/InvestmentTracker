@@ -1,0 +1,36 @@
+services:
+  postgres:
+    image: postgres:latest
+    container_name: postgres-db
+    environment:
+      - POSTGRES_DB=investments
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=sevenofdiamonds
+    volumes:
+      - postgres_data:/var/lib/postgresql/data 
+      - ./db-scripts:/docker-entrypoint-initdb.d
+    ports:
+      - "5432:5432"
+    
+  frontend:
+    build:
+      context: ./Frontend 
+      dockerfile: Dockerfile
+    ports:
+      - "443:443"
+    depends_on:
+      - backend
+
+  backend:
+    build: 
+      context: ./Backend
+      dockerfile: Dockerfile
+    environment:
+      ASPNETCORE_ENVIRONMENT: "Production"
+    ports:
+      - "5000:5000"
+    depends_on:
+      - postgres
+     
+volumes:
+  postgres_data:
