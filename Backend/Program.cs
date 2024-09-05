@@ -18,7 +18,9 @@ var config = builder.Configuration;
 
 builder.WebHost.ConfigureKestrel(options =>
 {
-  options.ListenAnyIP(5000);
+  options.ListenAnyIP(5000, listenOptions => {
+    listenOptions.UseHttps("/https/certificate.pfx", "sevenofdiamonds");
+  });
 });
 
 builder.Services.AddAuthentication(cfg => {

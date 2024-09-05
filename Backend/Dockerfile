@@ -11,7 +11,7 @@ FROM mcr.microsoft.com/dotnet/aspnet:7.0 AS runtime
 WORKDIR /app
 
 COPY --from=build /app ./
-#COPY ./Certs /https/
+COPY ./Certs/certificate.pfx /https/certificate.pfx
 
 EXPOSE 5000
 
