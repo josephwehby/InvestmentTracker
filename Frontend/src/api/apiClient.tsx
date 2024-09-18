@@ -1,7 +1,7 @@
 import  axios from "axios";
 
 const apiClient = axios.create({
-  baseURL: "https://backend:5000/investments",
+  baseURL: "/investments",
   withCredentials: true,
   headers: {
     "Content-Type": "application/json",
@@ -30,7 +30,7 @@ apiClient.interceptors.response.use(
       original._retry = true;
      
       try {   
-        const refresh = await axios.get("https://backend:5000/auth/refresh", { 
+        const refresh = await axios.get("/auth/refresh", { 
           withCredentials: true, 
         });
 

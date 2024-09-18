@@ -11,7 +11,7 @@ public class ApiService : IApiService {
     BaseAddress = new Uri("https://api.tiingo.com/iex/"),
     DefaultRequestHeaders = 
     {
-      Authorization = new AuthenticationHeaderValue("Token", Environment.GetEnvironmentVariable("TIINGO-KEY")),
+      Authorization = new AuthenticationHeaderValue("Token", Environment.GetEnvironmentVariable("TIINGO_API_KEY")),
       Accept = { new MediaTypeWithQualityHeaderValue("application/json") }
     }
   };
@@ -42,7 +42,5 @@ public class ApiService : IApiService {
         Console.WriteLine($"Error making api call: {e}");
         throw;
     }
-
-    return (price, 0);
   }
 }

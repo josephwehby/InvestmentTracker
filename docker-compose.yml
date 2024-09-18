@@ -11,6 +11,8 @@ services:
       - ./db-scripts:/docker-entrypoint-initdb.d
     ports:
       - "5432:5432"
+    networks:
+      - app-network
     
   frontend:
     build:
@@ -20,17 +22,27 @@ services:
       - "443:443"
     depends_on:
       - backend
+    networks:
+      - app-network
 
   backend:
     build: 
       context: ./Backend
       dockerfile: Dockerfile
-    environment:
+    environment:   
       ASPNETCORE_ENVIRONMENT: "Production"
+      TIINGO_API_KEY: dummytext
+
     ports:
       - "5000:5000"
     depends_on:
       - postgres
+    networks:
+      - app-network
      
 volumes:
   postgres_data:
+
+networks:
+  app-network:
+    driver: bridge
