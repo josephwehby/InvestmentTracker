@@ -39,7 +39,17 @@ services:
       - postgres
     networks:
       - app-network
-     
+  
+  cronjob:
+    build:
+      context: ./CronJob 
+      dockerfile: Dockerfile
+    depends_on:
+      - postgres 
+    networks:
+      - app-network
+
+
 volumes:
   postgres_data:
 

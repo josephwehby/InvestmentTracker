@@ -17,6 +17,7 @@ def getPrice(ticker):
     try:
         r = requests.get(url, headers=header)
         data = r.json()
+        print(data)
         price = data[0]["last"]
         print("Ticker: " + str(price))
         return Decimal(price)
@@ -30,8 +31,8 @@ def connect():
         conn = psycopg2.connect(
             database="investments",
             user="postgres",
-            password="aceofspades",
-            host="localhost",
+            password="sevenofdiamonds",
+            host="postgres",
             port=5432
         )
         return conn

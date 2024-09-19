@@ -1,0 +1,2 @@
+TZ=America/New_York
+0 16 * * 1-5 python /app/historic_pnl.py >> /var/log/cron.log 2>&1
