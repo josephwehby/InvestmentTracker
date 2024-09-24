@@ -1,9 +1,10 @@
 import psycopg2
 import os
+from datetime import datetime
 import requests
 from decimal import Decimal
 
-api_key = os.environ["TIINGO-KEY"]
+api_key = os.environ["TIINGO_API_KEY"]
 
 def getPrice(ticker):
     api = "Token " + api_key
@@ -17,7 +18,6 @@ def getPrice(ticker):
     try:
         r = requests.get(url, headers=header)
         data = r.json()
-        print(data)
         price = data[0]["last"]
         print("Ticker: " + str(price))
         return Decimal(price)
@@ -90,8 +90,9 @@ def updateDatabase(cursor, pnl, id):
 
 
 def main():
-    print("[!] Calculating ending day pnl of all users' stock positions...")
-
+    current_date = datetime.now().date()
+    print("[!] "+ str(current_date) + ": Calculating ending day pnl of all users' stock positions...")
+    
     conn = connect()
     
     if conn == None:

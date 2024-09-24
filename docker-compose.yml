@@ -44,6 +44,8 @@ services:
     build:
       context: ./CronJob 
       dockerfile: Dockerfile
+    environment:
+      - TIINGO_API_KEY=dummytext
     depends_on:
       - postgres 
     networks:
