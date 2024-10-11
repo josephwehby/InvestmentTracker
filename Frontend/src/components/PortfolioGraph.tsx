@@ -30,8 +30,8 @@ function customXAxis({ x, y, payload}: any) {
 
 function PortfolioGraph() {
   const [data, setData] = useState<DataPoint[] | null>(null);
-  const axiosInstance = useAxios();
   
+  const axiosInstance = useAxios();
   function swap(closing_date: string) {
     const [year, month, day] = closing_date.split("-");
     return `${month}-${day}-${year}`
