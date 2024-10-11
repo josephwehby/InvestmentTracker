@@ -1,10 +1,10 @@
 # Investment Tracker
 
 ## Layout
-<img src="./images/welcome.png" alt="Welcome" width="400" height="300">
-<img src="./images/sign-in.png" alt="Sign In" width="400" height="300">
-<img src="./images/register.png" alt="Register" width="400" height="300">
-<img src="./images/portfolio.png" alt="Portfolio" width="400" height="300">
+<img src="./images/welcome.png" alt="Welcome">
+<img src="./images/sign-in.png" alt="Sign In">
+<img src="./images/register.png" alt="Register">
+<img src="./images/portfolio.png" alt="Portfolio">
 
 
 ## About
